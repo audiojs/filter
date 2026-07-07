@@ -1,27 +1,54 @@
 {
-  "name": "audio-filter",
-  "version": "2.2.2",
+  "name": "@audio/filter",
+  "version": "3.0.0",
   "type": "module",
   "sideEffects": false,
   "description": "Audio filters – weighting, auditory, analog, speech, eq, effects",
   "exports": {
-    ".": "./index.js",
-    "./weighting": "./weighting/index.js",
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./weighting": {
+      "types": "./weighting/index.d.ts",
+      "default": "./weighting/index.js"
+    },
     "./weighting/*.js": "./weighting/*.js",
-    "./auditory": "./auditory/index.js",
+    "./auditory": {
+      "types": "./auditory/index.d.ts",
+      "default": "./auditory/index.js"
+    },
     "./auditory/*.js": "./auditory/*.js",
-    "./analog": "./analog/index.js",
+    "./analog": {
+      "types": "./analog/index.d.ts",
+      "default": "./analog/index.js"
+    },
     "./analog/*.js": "./analog/*.js",
-    "./speech": "./speech/index.js",
+    "./speech": {
+      "types": "./speech/index.d.ts",
+      "default": "./speech/index.js"
+    },
     "./speech/*.js": "./speech/*.js",
-    "./eq": "./eq/index.js",
+    "./eq": {
+      "types": "./eq/index.d.ts",
+      "default": "./eq/index.js"
+    },
     "./eq/*.js": "./eq/*.js",
-    "./effect": "./effect/index.js",
+    "./effect": {
+      "types": "./effect/index.d.ts",
+      "default": "./effect/index.js"
+    },
     "./effect/*.js": "./effect/*.js"
   },
   "types": "./index.d.ts",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "test": "node test.js",
+    "test:types": "tsc --noEmit --strict --module nodenext --moduleResolution nodenext test/types.ts",
+    "test:readme": "node test/readme.js",
+    "test:all": "npm test && npm run test:types && npm run test:readme",
     "plot": "node plot/generate.js"
   },
   "files": [
@@ -68,12 +95,19 @@
     "psychoacoustics",
     "signal-processing"
   ],
-  "author": "Dmitry Iv <dfcreative@gmail.com>",
+  "author": "Dmitry Iv. <dfcreative@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "digital-filter": "^2.0.0"
   },
   "devDependencies": {
-    "tst": "^9.4.0"
+    "tst": "^9.4.0",
+    "typescript": "^5.8.2"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

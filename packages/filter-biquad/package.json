@@ -1,0 +1,42 @@
+{
+  "name": "@audio/filter-biquad",
+  "version": "0.1.0",
+  "type": "module",
+  "sideEffects": false,
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "*.js"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "digital-filter": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "description": "biquad — filter atom",
+  "keywords": [
+    "audio",
+    "dsp",
+    "filter",
+    "biquad"
+  ],
+  "author": "Dmitry Iv. <dfcreative@gmail.com>",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/audiojs/audio-filter.git",
+    "directory": "packages/filter-biquad"
+  },
+  "bugs": {
+    "url": "https://github.com/audiojs/audio-filter/issues"
+  },
+  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-biquad"
+}

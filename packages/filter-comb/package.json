@@ -1,0 +1,39 @@
+{
+  "name": "@audio/filter-comb",
+  "version": "0.1.0",
+  "type": "module",
+  "sideEffects": false,
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "comb.js"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "description": "Comb filter — feedforward (FIR) and feedback (IIR)",
+  "keywords": [
+    "audio",
+    "dsp",
+    "filter",
+    "comb"
+  ],
+  "author": "Dmitry Iv. <dfcreative@gmail.com>",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/audiojs/audio-filter.git",
+    "directory": "packages/filter-comb"
+  },
+  "bugs": {
+    "url": "https://github.com/audiojs/audio-filter/issues"
+  },
+  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-comb"
+}
