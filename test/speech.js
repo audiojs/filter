@@ -1,5 +1,8 @@
 import test, { ok, is, almost } from 'tst'
-import * as audio from '../index.js'
+import formant from '@audio/speech-formant'
+import vocoder from '@audio/speech-vocoder'
+import { lpcAnalysis, lpcSynthesize } from '@audio/speech-lpc'
+const audio = { formant, vocoder, lpcAnalysis, lpcSynthesize }
 import { dftMag, impulse } from './util.js'
 
 // Deterministic PRNG (mulberry32) for reproducible synthetic AR-process tests

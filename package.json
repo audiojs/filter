@@ -3,42 +3,13 @@
   "version": "3.0.0",
   "type": "module",
   "sideEffects": false,
-  "description": "Audio filters – weighting, auditory, analog, speech, eq, effects",
+  "description": "Audio-facing filters — umbrella for @audio/filter-* atoms (biquads, comb, resonator, DC blocker, pre-emphasis, spectral tilt, analog ladder models)",
   "exports": {
     ".": {
       "types": "./index.d.ts",
       "default": "./index.js"
     },
-    "./weighting": {
-      "types": "./weighting/index.d.ts",
-      "default": "./weighting/index.js"
-    },
-    "./weighting/*.js": "./weighting/*.js",
-    "./auditory": {
-      "types": "./auditory/index.d.ts",
-      "default": "./auditory/index.js"
-    },
-    "./auditory/*.js": "./auditory/*.js",
-    "./analog": {
-      "types": "./analog/index.d.ts",
-      "default": "./analog/index.js"
-    },
-    "./analog/*.js": "./analog/*.js",
-    "./speech": {
-      "types": "./speech/index.d.ts",
-      "default": "./speech/index.js"
-    },
-    "./speech/*.js": "./speech/*.js",
-    "./eq": {
-      "types": "./eq/index.d.ts",
-      "default": "./eq/index.js"
-    },
-    "./eq/*.js": "./eq/*.js",
-    "./effect": {
-      "types": "./effect/index.d.ts",
-      "default": "./effect/index.js"
-    },
-    "./effect/*.js": "./effect/*.js"
+    "./package.json": "./package.json"
   },
   "types": "./index.d.ts",
   "engines": {
@@ -47,17 +18,11 @@
   "scripts": {
     "test": "node test.js",
     "test:types": "tsc --noEmit --strict --module nodenext --moduleResolution nodenext test/types.ts",
-    "test:readme": "node test/readme.js",
-    "test:all": "npm test && npm run test:types && npm run test:readme",
-    "plot": "node plot/generate.js"
+    "test:all": "npm test --workspaces --if-present && npm test",
+    "plot": "node plot/generate.js",
+    "publish:all": "npm publish --workspaces && npm publish"
   },
   "files": [
-    "weighting",
-    "auditory",
-    "analog",
-    "speech",
-    "eq",
-    "effect",
     "index.js",
     "index.d.ts"
   ],
@@ -98,7 +63,17 @@
   "author": "Dmitry Iv. <dfcreative@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "digital-filter": "^2.0.0"
+    "@audio/filter-biquad": "^1.0.0",
+    "@audio/filter-comb": "^1.0.0",
+    "@audio/filter-dcblocker": "^1.0.0",
+    "@audio/filter-resonator": "^1.0.0",
+    "@audio/filter-variable": "^1.0.0",
+    "@audio/filter-preemphasis": "^1.0.0",
+    "@audio/filter-spectral-tilt": "^1.0.0",
+    "@audio/filter-moog-ladder": "^1.0.0",
+    "@audio/filter-diode-ladder": "^1.0.0",
+    "@audio/filter-korg35": "^1.0.0",
+    "@audio/filter-oberheim": "^1.0.0"
   },
   "devDependencies": {
     "tst": "^9.4.0",
@@ -109,5 +84,6 @@
   ],
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "main": "index.js"
 }

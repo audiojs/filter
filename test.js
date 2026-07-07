@@ -1,7 +1,5 @@
-import './test/weighting.js'
-import './test/auditory.js'
 import './test/analog.js'
 import './test/speech.js'
-import './test/eq.js'
 import './test/effect.js'
 import './test/integration.js'
+// readme.js pending restructure-aware rewrite (families moved to @audio/weighting, @audio/auditory, @audio/eq, @audio/spatial)

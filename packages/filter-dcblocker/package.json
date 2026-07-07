@@ -1,39 +1,38 @@
 {
   "name": "@audio/filter-dcblocker",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "DC blocking filter",
   "type": "module",
   "sideEffects": false,
-  "main": "index.js",
+  "main": "dc-blocker.js",
   "exports": {
-    ".": "./index.js",
+    ".": "./dc-blocker.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "index.js",
     "dc-blocker.js"
   ],
-  "license": "MIT",
-  "engines": {
-    "node": ">=18"
-  },
-  "description": "DC blocking filter",
   "keywords": [
     "audio",
     "dsp",
     "filter",
     "dcblocker"
   ],
+  "license": "MIT",
   "author": "Dmitry Iv. <dfcreative@gmail.com>",
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/audiojs/audio-filter.git",
     "directory": "packages/filter-dcblocker"
   },
+  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-dcblocker",
   "bugs": {
     "url": "https://github.com/audiojs/audio-filter/issues"
   },
-  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-dcblocker"
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -16,6 +16,7 @@ let butterworth
  */
 export default function highpass (data, params) {
 	let fc = params.fc, fs = params.fs || 44100
+	if (fc == null) throw new Error('highpass: params.fc is required')
 	let order = params.order || 2, Q = params.Q == null ? 0.707 : params.Q
 
 	if (!params.coefs || params._fc !== fc || params._order !== order || params._Q !== Q || params._fs !== fs) {

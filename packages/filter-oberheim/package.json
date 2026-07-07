@@ -1,31 +1,31 @@
 {
-  "name": "@audio/filter-resonator",
+  "name": "@audio/filter-oberheim",
   "version": "1.0.0",
-  "description": "Constant-peak-gain resonator (JOS two-zero form)",
+  "description": "Oberheim SEM state-variable filter (–12 dB/oct multimode)",
   "type": "module",
   "sideEffects": false,
-  "main": "resonator.js",
+  "main": "oberheim.js",
   "exports": {
-    ".": "./resonator.js",
+    ".": "./oberheim.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "resonator.js"
+    "oberheim.js"
   ],
   "keywords": [
     "audio",
     "dsp",
     "filter",
-    "resonator"
+    "oberheim"
   ],
   "license": "MIT",
   "author": "Dmitry Iv. <dfcreative@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/audiojs/audio-filter.git",
-    "directory": "packages/filter-resonator"
+    "directory": "packages/filter-oberheim"
   },
-  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-resonator",
+  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-oberheim",
   "bugs": {
     "url": "https://github.com/audiojs/audio-filter/issues"
   },

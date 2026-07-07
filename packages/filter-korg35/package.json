@@ -1,31 +1,31 @@
 {
-  "name": "@audio/filter-resonator",
+  "name": "@audio/filter-korg35",
   "version": "1.0.0",
-  "description": "Constant-peak-gain resonator (JOS two-zero form)",
+  "description": "Korg MS-20 style filter (Korg35)",
   "type": "module",
   "sideEffects": false,
-  "main": "resonator.js",
+  "main": "korg35.js",
   "exports": {
-    ".": "./resonator.js",
+    ".": "./korg35.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "resonator.js"
+    "korg35.js"
   ],
   "keywords": [
     "audio",
     "dsp",
     "filter",
-    "resonator"
+    "korg35"
   ],
   "license": "MIT",
   "author": "Dmitry Iv. <dfcreative@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/audiojs/audio-filter.git",
-    "directory": "packages/filter-resonator"
+    "directory": "packages/filter-korg35"
   },
-  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-resonator",
+  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-korg35",
   "bugs": {
     "url": "https://github.com/audiojs/audio-filter/issues"
   },

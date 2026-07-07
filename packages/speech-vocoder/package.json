@@ -1,31 +1,35 @@
 {
-  "name": "@audio/filter-resonator",
+  "name": "@audio/speech-vocoder",
   "version": "1.0.0",
-  "description": "Constant-peak-gain resonator (JOS two-zero form)",
+  "description": "Channel vocoder",
   "type": "module",
   "sideEffects": false,
-  "main": "resonator.js",
+  "main": "vocoder.js",
   "exports": {
-    ".": "./resonator.js",
+    ".": "./vocoder.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "resonator.js"
+    "vocoder.js",
+    "vocoder.d.ts"
   ],
+  "dependencies": {
+    "digital-filter": "^2.0.0"
+  },
   "keywords": [
     "audio",
     "dsp",
-    "filter",
-    "resonator"
+    "speech",
+    "vocoder"
   ],
   "license": "MIT",
   "author": "Dmitry Iv. <dfcreative@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/audiojs/audio-filter.git",
-    "directory": "packages/filter-resonator"
+    "directory": "packages/speech-vocoder"
   },
-  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-resonator",
+  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/speech-vocoder",
   "bugs": {
     "url": "https://github.com/audiojs/audio-filter/issues"
   },
@@ -34,5 +38,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "types": "vocoder.d.ts"
 }

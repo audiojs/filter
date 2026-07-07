@@ -1,8 +1,0 @@
-export { default as graphicEq } from './graphic-eq.js'
-export { default as parametricEq } from './parametric-eq.js'
-export { default as crossover } from './crossover.js'
-export { default as crossfeed } from './crossfeed.js'
-export { default as lowShelf } from './lowshelf.js'
-export { default as highShelf } from './highshelf.js'
-export { default as baxandall } from './baxandall.js'
-export { default as tilt } from './tilt.js'

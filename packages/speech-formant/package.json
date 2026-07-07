@@ -1,31 +1,35 @@
 {
-  "name": "@audio/filter-resonator",
+  "name": "@audio/speech-formant",
   "version": "1.0.0",
-  "description": "Constant-peak-gain resonator (JOS two-zero form)",
+  "description": "Parallel formant filter bank",
   "type": "module",
   "sideEffects": false,
-  "main": "resonator.js",
+  "main": "formant.js",
   "exports": {
-    ".": "./resonator.js",
+    ".": "./formant.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "resonator.js"
+    "formant.js",
+    "formant.d.ts"
   ],
+  "dependencies": {
+    "@audio/filter-resonator": "^1.0.0"
+  },
   "keywords": [
     "audio",
     "dsp",
-    "filter",
-    "resonator"
+    "speech",
+    "formant"
   ],
   "license": "MIT",
   "author": "Dmitry Iv. <dfcreative@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/audiojs/audio-filter.git",
-    "directory": "packages/filter-resonator"
+    "directory": "packages/speech-formant"
   },
-  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-resonator",
+  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/speech-formant",
   "bugs": {
     "url": "https://github.com/audiojs/audio-filter/issues"
   },
@@ -34,5 +38,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "types": "formant.d.ts"
 }

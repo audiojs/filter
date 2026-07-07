@@ -1,42 +1,56 @@
 {
   "name": "@audio/filter-biquad",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Audio-facing biquad filters — highpass, lowpass, bandpass, notch, allpass (Hz/Q params, per-channel state)",
   "type": "module",
   "sideEffects": false,
   "main": "index.js",
   "exports": {
     ".": "./index.js",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./highpass": "./highpass.js",
+    "./lowpass": "./lowpass.js",
+    "./bandpass": "./bandpass.js",
+    "./notch": "./notch.js",
+    "./allpass": "./allpass.js"
   },
   "files": [
     "index.js",
-    "*.js"
+    "highpass.js",
+    "lowpass.js",
+    "bandpass.js",
+    "notch.js",
+    "allpass.js"
   ],
-  "license": "MIT",
   "dependencies": {
     "digital-filter": "^2.0.0"
   },
-  "engines": {
-    "node": ">=18"
-  },
-  "description": "biquad — filter atom",
   "keywords": [
     "audio",
     "dsp",
     "filter",
-    "biquad"
+    "biquad",
+    "highpass",
+    "lowpass",
+    "bandpass",
+    "notch",
+    "allpass"
   ],
+  "license": "MIT",
   "author": "Dmitry Iv. <dfcreative@gmail.com>",
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/audiojs/audio-filter.git",
     "directory": "packages/filter-biquad"
   },
+  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-biquad",
   "bugs": {
     "url": "https://github.com/audiojs/audio-filter/issues"
   },
-  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-biquad"
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

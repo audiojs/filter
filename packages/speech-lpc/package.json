@@ -1,31 +1,32 @@
 {
-  "name": "@audio/filter-resonator",
+  "name": "@audio/speech-lpc",
   "version": "1.0.0",
-  "description": "Constant-peak-gain resonator (JOS two-zero form)",
+  "description": "Linear Predictive Coding analysis/synthesis",
   "type": "module",
   "sideEffects": false,
-  "main": "resonator.js",
+  "main": "lpc.js",
   "exports": {
-    ".": "./resonator.js",
+    ".": "./lpc.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "resonator.js"
+    "lpc.js",
+    "lpc.d.ts"
   ],
   "keywords": [
     "audio",
     "dsp",
-    "filter",
-    "resonator"
+    "speech",
+    "lpc"
   ],
   "license": "MIT",
   "author": "Dmitry Iv. <dfcreative@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/audiojs/audio-filter.git",
-    "directory": "packages/filter-resonator"
+    "directory": "packages/speech-lpc"
   },
-  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-resonator",
+  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/speech-lpc",
   "bugs": {
     "url": "https://github.com/audiojs/audio-filter/issues"
   },
@@ -34,5 +35,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "types": "lpc.d.ts"
 }

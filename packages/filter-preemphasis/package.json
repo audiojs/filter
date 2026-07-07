@@ -1,31 +1,31 @@
 {
-  "name": "@audio/filter-resonator",
+  "name": "@audio/filter-preemphasis",
   "version": "1.0.0",
-  "description": "Constant-peak-gain resonator (JOS two-zero form)",
+  "description": "Pre-emphasis / de-emphasis filter",
   "type": "module",
   "sideEffects": false,
-  "main": "resonator.js",
+  "main": "pre-emphasis.js",
   "exports": {
-    ".": "./resonator.js",
+    ".": "./pre-emphasis.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "resonator.js"
+    "pre-emphasis.js"
   ],
   "keywords": [
     "audio",
     "dsp",
     "filter",
-    "resonator"
+    "preemphasis"
   ],
   "license": "MIT",
   "author": "Dmitry Iv. <dfcreative@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/audiojs/audio-filter.git",
-    "directory": "packages/filter-resonator"
+    "directory": "packages/filter-preemphasis"
   },
-  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-resonator",
+  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-preemphasis",
   "bugs": {
     "url": "https://github.com/audiojs/audio-filter/issues"
   },

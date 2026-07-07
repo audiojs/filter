@@ -14,6 +14,7 @@ import filter from 'digital-filter/core/filter.js'
  */
 export default function bandpass (data, params) {
 	let fc = params.fc, Q = params.Q == null ? 0.707 : params.Q, fs = params.fs || 44100
+	if (fc == null) throw new Error('bandpass: params.fc is required')
 
 	if (!params.coefs || params._fc !== fc || params._Q !== Q || params._fs !== fs) {
 		params.coefs = [biquadBp(fc, Q, fs)]

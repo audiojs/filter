@@ -1,31 +1,31 @@
 {
-  "name": "@audio/filter-resonator",
+  "name": "@audio/filter-spectral-tilt",
   "version": "1.0.0",
-  "description": "Constant-peak-gain resonator (JOS two-zero form)",
+  "description": "Spectral tilt filter: apply a constant dB/octave slope to the spectrum",
   "type": "module",
   "sideEffects": false,
-  "main": "resonator.js",
+  "main": "spectral-tilt.js",
   "exports": {
-    ".": "./resonator.js",
+    ".": "./spectral-tilt.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "resonator.js"
+    "spectral-tilt.js"
   ],
   "keywords": [
     "audio",
     "dsp",
     "filter",
-    "resonator"
+    "spectral-tilt"
   ],
   "license": "MIT",
   "author": "Dmitry Iv. <dfcreative@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/audiojs/audio-filter.git",
-    "directory": "packages/filter-resonator"
+    "directory": "packages/filter-spectral-tilt"
   },
-  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-resonator",
+  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-spectral-tilt",
   "bugs": {
     "url": "https://github.com/audiojs/audio-filter/issues"
   },

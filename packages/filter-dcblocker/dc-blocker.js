@@ -2,7 +2,7 @@
  * DC blocking filter
  * H(z) = (1 - z^-1) / (1 - R*z^-1)
  *
- * @module  digital-filter/dc-blocker
+ * @module  audio-filter/effect/dc-blocker
  */
 
 export default function dcBlocker (data, params) {

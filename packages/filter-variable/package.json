@@ -1,42 +1,41 @@
 {
   "name": "@audio/filter-variable",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Variable-bandwidth filter with per-sample smoothed coefficient trajectory",
   "type": "module",
   "sideEffects": false,
-  "main": "index.js",
+  "main": "variable-bandwidth.js",
   "exports": {
-    ".": "./index.js",
+    ".": "./variable-bandwidth.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "index.js",
     "variable-bandwidth.js"
   ],
-  "license": "MIT",
   "dependencies": {
     "digital-filter": "^2.0.0"
   },
-  "engines": {
-    "node": ">=18"
-  },
-  "description": "Variable-bandwidth filter with smooth coefficient interpolation",
   "keywords": [
     "audio",
     "dsp",
     "filter",
     "variable"
   ],
+  "license": "MIT",
   "author": "Dmitry Iv. <dfcreative@gmail.com>",
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/audiojs/audio-filter.git",
     "directory": "packages/filter-variable"
   },
+  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-variable",
   "bugs": {
     "url": "https://github.com/audiojs/audio-filter/issues"
   },
-  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-variable"
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

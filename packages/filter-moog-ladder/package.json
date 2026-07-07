@@ -1,31 +1,31 @@
 {
-  "name": "@audio/filter-resonator",
+  "name": "@audio/filter-moog-ladder",
   "version": "1.0.0",
-  "description": "Constant-peak-gain resonator (JOS two-zero form)",
+  "description": "Moog 4-pole transistor ladder filter (-24 dB/oct lowpass with resonance)",
   "type": "module",
   "sideEffects": false,
-  "main": "resonator.js",
+  "main": "moog-ladder.js",
   "exports": {
-    ".": "./resonator.js",
+    ".": "./moog-ladder.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "resonator.js"
+    "moog-ladder.js"
   ],
   "keywords": [
     "audio",
     "dsp",
     "filter",
-    "resonator"
+    "moog-ladder"
   ],
   "license": "MIT",
   "author": "Dmitry Iv. <dfcreative@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/audiojs/audio-filter.git",
-    "directory": "packages/filter-resonator"
+    "directory": "packages/filter-moog-ladder"
   },
-  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-resonator",
+  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-moog-ladder",
   "bugs": {
     "url": "https://github.com/audiojs/audio-filter/issues"
   },
