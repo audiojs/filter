@@ -8,9 +8,9 @@ export default function cWeighting(data, params = {}) {
 	if (!params._sos || params._fs !== fs) {
 		params._fs = fs
 		params._sos = cWeighting.coefs(fs)
+		params.coefs = params._sos
 	}
-	if (!params.state) params.state = params._sos.map(() => [0, 0])
-	return dfFilter(data, { coefs: params._sos, state: params.state })
+	return dfFilter(data, params)
 }
 
 cWeighting.coefs = function coefs(fs = 44100) {

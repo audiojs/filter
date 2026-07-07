@@ -17,13 +17,14 @@ export default function baxandall (data, params) {
 
 	if (!params._b) { params._b = {}; params._t = {} }
 
-	if (params._bass !== bass || params._fBass !== fBass || params._fs !== fs) {
+	// each branch tracks its own fs — neither reads state the other branch writes
+	if (params._bass !== bass || params._fBass !== fBass || params._bFs !== fs) {
 		params._b.coefs = [lowshelf(fBass, 0.707, fs, bass)]
-		params._bass = bass; params._fBass = fBass
+		params._bass = bass; params._fBass = fBass; params._bFs = fs
 	}
-	if (params._treble !== treble || params._fTreble !== fTreble || params._fs !== fs) {
+	if (params._treble !== treble || params._fTreble !== fTreble || params._tFs !== fs) {
 		params._t.coefs = [highshelf(fTreble, 0.707, fs, treble)]
-		params._treble = treble; params._fTreble = fTreble; params._fs = fs
+		params._treble = treble; params._fTreble = fTreble; params._tFs = fs
 	}
 
 	dfFilter(data, params._b)

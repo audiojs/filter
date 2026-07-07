@@ -2,7 +2,7 @@
  * Channel vocoder.
  * Analyzes modulator's spectral envelope, applies it to carrier.
  *
- * @module  digital-filter/vocoder
+ * @module  audio-filter/speech/vocoder
  */
 
 import { bandpass2 } from 'digital-filter/iir/biquad.js'
@@ -34,7 +34,9 @@ export default function vocoder (carrier, modulator, params) {
 	let fs = params.fs || 44100
 	let N = carrier.length
 
-	if (!params._analysis) {
+	// Rebuild filter bank when bands/fmin/fmax/fs change on a reused params object
+	let key = nBands + '|' + fmin + '|' + fmax + '|' + fs
+	if (params._vocoderKey !== key) {
 		params._analysis = []
 		params._synthesis = []
 		params._envStates = []
@@ -47,6 +49,7 @@ export default function vocoder (carrier, modulator, params) {
 			params._synthesis.push({coefs})
 			params._envStates.push({attack: 0.005, release: 0.05, fs})
 		}
+		params._vocoderKey = key
 	}
 
 	let output = new Float64Array(N)

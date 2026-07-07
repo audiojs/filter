@@ -4,8 +4,6 @@
  *
  * Reference: Zwicker & Terhardt, "Analytical expressions for critical-band
  * rate and critical bandwidth as a function of frequency", JASA 68 (1980).
- *
- * @module digital-filter/bark-bank
  */
 
 import { bandpass2 } from 'digital-filter/iir/biquad.js'
@@ -32,7 +30,8 @@ export default function barkBank (fs, opts) {
 	let bands = []
 
 	for (let i = 0; i < BARK_EDGES.length - 1; i++) {
-		let fLow = BARK_EDGES[i]
+		// honor a caller-supplied fmin below the table's first edge instead of silently clamping up to it
+		let fLow = i === 0 ? Math.min(BARK_EDGES[i], fmin) : BARK_EDGES[i]
 		let fHigh = BARK_EDGES[i + 1]
 		if (fHigh < fmin || fLow > fmax || fHigh > nyq) continue
 		fLow = Math.max(fLow, fmin)

@@ -1,23 +1,34 @@
 import dfFilter from 'digital-filter/core/filter.js'
-import { highpass, peaking, highshelf, lowpass } from 'digital-filter/iir/biquad.js'
+import matchedZ from 'digital-filter/core/matched-z.js'
 
 export default function itu468(data, params = {}) {
 	let fs = params.fs || 48000
 	if (!params._sos || params._fs !== fs) {
 		params._fs = fs
 		params._sos = itu468.coefs(fs)
+		params.coefs = params._sos
 	}
-	if (!params.state) params.state = params._sos.map(() => [0, 0])
-	return dfFilter(data, { coefs: params._sos, state: params.state })
+	return dfFilter(data, params)
 }
 
 itu468.coefs = function coefs(fs = 48000) {
-	// ITU-R 468 noise weighting: peaked at +12.2 dB near 6.3 kHz
-	// IIR approximation within ~1 dB across 31.5 Hz–20 kHz
-	return [
-		highpass(20, 0.65, fs),
-		peaking(6300, 0.72, fs, 12.2),
-		highshelf(1250, 0.45, fs, 5.6),
-		lowpass(22000, 0.55, fs)
-	]
+	// ITU-R BS.468-4 noise weighting, exact matched-z realization: peaked at
+	// +12.2 dB near 6.3 kHz. Poles found via Durand-Kerner root-finding on the
+	// spec's rational polynomial (Rec. ITU-R BS.468-4 Annex 1, reproduced in
+	// Wikipedia "ITU-R 468 noise weighting"); the analog prototype matches the
+	// spec table to within 0.05 dB across 31.5 Hz–20 kHz. Matched z reproduces
+	// this near-exactly away from Nyquist; error grows above ~10 kHz at 44.1/48 kHz.
+	return matchedZ(
+		[
+			{ re: -23615.535214, im: 36379.908937 },
+			{ re: -23615.535214, im: -36379.908937 },
+			{ re: -18743.746691, im: 62460.156453 },
+			{ re: -18743.746691, im: -62460.156453 },
+			-25903.701048,
+			-62675.170058
+		],
+		[0],
+		fs,
+		1000
+	)
 }

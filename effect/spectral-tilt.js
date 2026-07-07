@@ -2,7 +2,7 @@
  * Spectral tilt filter: apply a constant dB/octave slope to the spectrum.
  * Implemented as a cascade of first-order shelving sections.
  *
- * @module  digital-filter/spectral-tilt
+ * @module  audio-filter/effect/spectral-tilt
  */
 
 /**
@@ -16,9 +16,11 @@ export default function spectralTilt (data, params) {
 	if (slope === 0) return data
 
 	// Use a cascade of first-order filters at octave-spaced frequencies
-	if (!params._s) {
+	if (!params._coefs || params._slope !== slope || params._fs !== fs) {
 		let nStages = 8
-		params._s = new Float64Array(nStages)
+		params._slope = slope
+		params._fs = fs
+		if (!params._s) params._s = new Float64Array(nStages)
 		params._coefs = []
 		for (let j = 0; j < nStages; j++) {
 			let fc = 62.5 * Math.pow(2, j) // 62.5, 125, 250, ... 8kHz
@@ -37,7 +39,7 @@ export default function spectralTilt (data, params) {
 		for (let j = 0; j < coefs.length; j++) {
 			let c = coefs[j]
 			s[j] = c.a * s[j] + (1 - c.a) * x
-			x = s[j] * c.gain + (x - s[j])
+			x = s[j] + (x - s[j]) * c.gain
 		}
 		data[i] = x
 	}

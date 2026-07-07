@@ -5,8 +5,6 @@
  *
  * Reference: O'Shaughnessy, "Speech Communications: Human and Machine",
  * IEEE Press, 2000. mel(f) = 2595 * log10(1 + f/700).
- *
- * @module digital-filter/mel-bank
  */
 
 let mel = f => 2595 * Math.log10(1 + f / 700)

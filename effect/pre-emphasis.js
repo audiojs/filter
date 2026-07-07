@@ -5,7 +5,7 @@
  * Pre-emphasis:  H(z) = 1 - α*z^-1  (boosts high frequencies)
  * De-emphasis:   H(z) = 1 / (1 - α*z^-1)  (cuts high frequencies)
  *
- * @module  digital-filter/pre-emphasis
+ * @module  audio-filter/effect/pre-emphasis
  */
 
 export function emphasis (data, params) {

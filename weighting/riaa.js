@@ -7,9 +7,9 @@ export default function riaa(data, params = {}) {
 	if (!params._sos || params._fs !== fs) {
 		params._fs = fs
 		params._sos = riaa.coefs(fs)
+		params.coefs = params._sos
 	}
-	if (!params.state) params.state = params._sos.map(() => [0, 0])
-	return dfFilter(data, { coefs: params._sos, state: params.state })
+	return dfFilter(data, params)
 }
 
 riaa.coefs = function coefs(fs = 44100) {

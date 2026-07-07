@@ -1,7 +1,7 @@
 /**
  * Comb filter — feedforward (FIR) and feedback (IIR)
  *
- * @module  digital-filter/comb
+ * @module  audio-filter/effect/comb
  */
 
 export default function comb (data, params) {
@@ -9,9 +9,10 @@ export default function comb (data, params) {
 	let gain = params.gain == null ? .5 : params.gain
 	let type = params.type || 'feedforward'
 
-	if (!params.buffer) {
+	if (!params.buffer || params._M !== M) {
 		params.buffer = new Float64Array(M)
 		params.ptr = 0
+		params._M = M
 	}
 	let buf = params.buffer, ptr = params.ptr
 

@@ -8,7 +8,7 @@
  * 4 cascaded one-pole trapezoidal integrators with implicit feedback solving.
  * No unit delay in feedback path — resonance tracks cutoff accurately to Nyquist.
  *
- * @module  digital-filter/moog-ladder
+ * @module  audio-filter/analog/moog-ladder
  * @param {Float32Array|Float64Array} data - audio buffer (modified in place)
  * @param {Object} params
  * @param {number} [params.fc=1000] - cutoff frequency Hz
@@ -23,7 +23,7 @@ export default function moogLadder (data, params) {
 	let fc = params.fc || 1000
 	let res = params.resonance != null ? params.resonance : 0
 	let fs = params.fs || 44100
-	let drive = params.drive || 1
+	let drive = params.drive ?? 1
 
 	// Trapezoidal integrator coefficient
 	let g = tan(PI * min(fc, fs * 0.49) / fs)

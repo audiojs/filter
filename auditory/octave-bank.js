@@ -1,14 +1,19 @@
 /**
  * IEC 61260 fractional-octave filter bank.
  * Generates bandpass filters at standard ISO center frequencies.
- *
- * @module  digital-filter/octave-bank
  */
 
 import { bandpass2 } from 'digital-filter/iir/biquad.js'
 
 let { pow, log, ceil, floor, round } = Math
 
+/**
+ * Generate IEC 61260 fractional-octave filter bank.
+ * @param {number} fraction - Octave fraction, e.g. 1 (full octave) or 3 (1/3-octave, default)
+ * @param {number} fs - Sample rate (default 44100)
+ * @param {object} opts - { fmin: 31.25, fmax: 16000 }
+ * @returns {Array<{fc: number, coefs: {b0,b1,b2,a1,a2}}>}
+ */
 export default function octaveBank (fraction, fs, opts) {
 	if (!fraction) fraction = 3
 	if (!fs) fs = 44100

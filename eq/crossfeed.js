@@ -2,7 +2,7 @@
  * Headphone crossfeed filter.
  * Mixes L->R and R->L through a frequency-dependent filter to improve imaging.
  *
- * @module  digital-filter/crossfeed
+ * @module  audio-filter/eq/crossfeed
  */
 
 import { lowpass } from 'digital-filter/iir/biquad.js'
@@ -18,9 +18,12 @@ export default function crossfeed (left, right, params) {
 	let level = params.level != null ? params.level : 0.3
 	let fs = params.fs || 44100
 
-	if (!params._coefs) params._coefs = lowpass(fc, 0.5, fs)
-	if (!params._stateL) params._stateL = { coefs: params._coefs }
-	if (!params._stateR) params._stateR = { coefs: params._coefs }
+	if (!params._coefs || params._fc !== fc || params._fs !== fs || params._level !== level) {
+		params._coefs = lowpass(fc, 0.5, fs)
+		params._stateL = { coefs: params._coefs }
+		params._stateR = { coefs: params._coefs }
+		params._fc = fc; params._fs = fs; params._level = level
+	}
 
 	// Filter copies for crossfeed
 	let crossL = Float64Array.from(right)
@@ -29,9 +32,10 @@ export default function crossfeed (left, right, params) {
 	filter(crossL, params._stateL)
 	filter(crossR, params._stateR)
 
+	// direct + cross = 1: mono/correlated content stays at unity gain (Bauer/BS2B)
 	for (let i = 0; i < left.length; i++) {
-		left[i] = left[i] * (1 - level * 0.5) + crossL[i] * level
-		right[i] = right[i] * (1 - level * 0.5) + crossR[i] * level
+		left[i] = left[i] * (1 - level * 0.5) + crossL[i] * (level * 0.5)
+		right[i] = right[i] * (1 - level * 0.5) + crossR[i] * (level * 0.5)
 	}
 
 	return { left, right }

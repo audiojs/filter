@@ -8,7 +8,7 @@
  * Two trapezoidal integrators with tanh saturation in the feedback path
  * give the warm, musical character of the original SEM hardware.
  *
- * @module  digital-filter/oberheim
+ * @module  audio-filter/analog/oberheim
  * @param {Float32Array|Float64Array} data - audio buffer (modified in place)
  * @param {Object} params
  * @param {number} [params.fc=1000] - cutoff frequency Hz

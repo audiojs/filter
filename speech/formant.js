@@ -2,7 +2,7 @@
  * Parallel formant filter bank.
  * Used for vowel/formant synthesis.
  *
- * @module  digital-filter/formant
+ * @module  audio-filter/speech/formant
  */
 
 import resonator from '../effect/resonator.js'
@@ -19,8 +19,12 @@ export default function formant (data, params) {
 		{fc: 2440, bw: 170, gain: 0.3}
 	]
 
-	if (!params._states) {
-		params._states = formants.map(f => ({fc: f.fc, bw: f.bw || 50, fs, _gain: f.gain || 1}))
+	// Rebuild filter bank when band content (fc/bw/gain) or fs changes — keyed by
+	// content, not object identity, since params.formants is often reused/mutated in place
+	let key = fs + '|' + formants.map(f => f.fc + ',' + (f.bw || 50) + ',' + (f.gain ?? 1)).join(';')
+	if (params._formantsKey !== key) {
+		params._states = formants.map(f => ({fc: f.fc, bw: f.bw || 50, fs, _gain: f.gain ?? 1}))
+		params._formantsKey = key
 	}
 
 	let input = Float64Array.from(data)

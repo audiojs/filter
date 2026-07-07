@@ -1,7 +1,7 @@
 /**
  * N-way crossover network using Linkwitz-Riley filters.
  *
- * @module  digital-filter/crossover
+ * @module  audio-filter/eq/crossover
  */
 
 import linkwitzRiley from 'digital-filter/iir/linkwitz-riley.js'
@@ -30,6 +30,18 @@ export default function crossover (frequencies, order, fs) {
 			let hp = linkwitzRiley(order, frequencies[i - 1], fs).high
 			let lp = linkwitzRiley(order, frequencies[i], fs).low
 			bands.push(hp.concat(lp))
+		}
+	}
+
+	// LR order ≡ 2 (mod 4) — LR2, LR6, ... — sums flat only with one output inverted
+	// per crossover; order ≡ 0 (mod 4) — LR4, LR8, ... — sums in-phase already.
+	// Linkwitz, S. & Riley, R. (1976), JAES 24(1)
+	if ((order / 2) % 2) {
+		for (let i = 1; i < bands.length; i += 2) {
+			let sos = bands[i].slice()
+			let c = sos[0]
+			sos[0] = { ...c, b0: -c.b0, b1: -c.b1, b2: -c.b2 }
+			bands[i] = sos
 		}
 	}
 

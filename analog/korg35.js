@@ -10,14 +10,22 @@
  * saturation in the feedback path gives the aggressive MS-20 character.
  *
  * Lowpass: output from second stage.
- * Highpass: input minus lowpass output (complementary).
+ * Highpass: input minus lowpass output — exactly complementary only at
+ * resonance=0; the feedback term in the HP tap makes LP+HP diverge from the
+ * input as resonance increases (see readme).
  *
- * @module  digital-filter/korg35
+ * Only 2 real poles feed the resonance loop (vs. moog-ladder's 4), so the
+ * loop phase never reaches -180° at any audible, non-negligible-gain
+ * frequency: resonance adds damping/saturation character but no resonant
+ * peak and no sustained self-oscillation at any resonance setting (see readme).
+ *
+ * @module  audio-filter/analog/korg35
  * @param {Float32Array|Float64Array} data - audio buffer (modified in place)
  * @param {Object} params
  * @param {number} [params.fc=1000] - cutoff frequency Hz
- * @param {number} [params.resonance=0] - resonance 0–1 (self-oscillation at 1)
+ * @param {number} [params.resonance=0] - resonance 0–1 (aggressive damping/saturation; no self-oscillation — see readme)
  * @param {number} [params.fs=44100] - sample rate
+ * @param {number} [params.drive=1] - input drive (saturation amount)
  * @param {string} [params.type='lowpass'] - 'lowpass' or 'highpass'
  */
 
@@ -27,6 +35,7 @@ export default function korg35 (data, params) {
 	let fc = params.fc || 1000
 	let res = params.resonance != null ? params.resonance : 0
 	let fs = params.fs || 44100
+	let drive = params.drive ?? 1
 	let hp = params.type === 'highpass'
 
 	// Trapezoidal integrator coefficient
@@ -47,7 +56,7 @@ export default function korg35 (data, params) {
 		let u = (data[i] - k * S) / (1 + k * G2)
 
 		// Nonlinear saturation in feedback path (MS-20 character)
-		u = tanh(u)
+		u = tanh(u * drive)
 
 		// Two cascaded trapezoidal one-pole lowpass stages
 		let y1 = G * (u - s[0]) + s[0]
