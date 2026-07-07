@@ -1,0 +1,20 @@
+{
+  "name": "@audio/speech-world",
+  "version": "0.0.0",
+  "description": "WORLD-style vocoder — source-filter decomposition: F0 + spectral envelope + aperiodicity (Morise 2016)",
+  "type": "module",
+  "sideEffects": false,
+  "private": true,
+  "keywords": [
+    "audio",
+    "dsp",
+    "speech",
+    "vocoder",
+    "world"
+  ],
+  "license": "MIT",
+  "author": "Dmitry Iv. <dfcreative@gmail.com>",
+  "engines": {
+    "node": ">=18"
+  }
+}
