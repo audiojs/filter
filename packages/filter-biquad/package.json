@@ -42,12 +42,12 @@
   "author": "Dmitry Iv. <dfcreative@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/audiojs/audio-filter.git",
+    "url": "git+https://github.com/audiojs/filter.git",
     "directory": "packages/filter-biquad"
   },
-  "homepage": "https://github.com/audiojs/audio-filter/tree/main/packages/filter-biquad",
+  "homepage": "https://github.com/audiojs/filter/tree/main/packages/filter-biquad",
   "bugs": {
-    "url": "https://github.com/audiojs/audio-filter/issues"
+    "url": "https://github.com/audiojs/filter/issues"
   },
   "engines": {
     "node": ">=18"

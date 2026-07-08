@@ -28,12 +28,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/audiojs/audio-filter.git"
+    "url": "git+https://github.com/audiojs/filter.git"
   },
   "bugs": {
-    "url": "https://github.com/audiojs/audio-filter/issues"
+    "url": "https://github.com/audiojs/filter/issues"
   },
-  "homepage": "https://github.com/audiojs/audio-filter#readme",
+  "homepage": "https://github.com/audiojs/filter#readme",
   "keywords": [
     "audio",
     "dsp",

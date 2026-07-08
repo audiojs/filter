@@ -1,4 +1,4 @@
-# @audio/filter [![ci](https://github.com/audiojs/audio-filter/actions/workflows/ci.yml/badge.svg)](https://github.com/audiojs/audio-filter/actions/workflows/ci.yml) [![npm](https://img.shields.io/npm/v/@audio/filter)](https://npmjs.org/package/@audio/filter) [![MIT](https://img.shields.io/badge/MIT-%E0%A5%90-white)](https://github.com/krishnized/license)
+# @audio/filter [![ci](https://github.com/audiojs/filter/actions/workflows/ci.yml/badge.svg)](https://github.com/audiojs/filter/actions/workflows/ci.yml) [![npm](https://img.shields.io/npm/v/@audio/filter)](https://npmjs.org/package/@audio/filter) [![MIT](https://img.shields.io/badge/MIT-%E0%A5%90-white)](https://github.com/krishnized/license)
 
 Canonical audio filter implementations.<br>
 
@@ -1115,10 +1115,10 @@ moogLadder(buffer, { fc: 1000, fs: 48000 })
 
 ## See also
 
-- [audio-effect](https://github.com/audiojs/audio-effect) — audio effects: phaser, flanger, chorus, wah, compressor, reverb, delay, and more
+- [effect](https://github.com/audiojs/effect) — audio effects: phaser, flanger, chorus, wah, compressor, reverb, delay, and more
 - [digital-filter](https://github.com/audiojs/digital-filter) — general-purpose filter design: Butterworth, Chebyshev, Bessel, Elliptic, FIR, and more
-- [audio-decode](https://github.com/audiojs/audio-decode) — decode audio files to PCM buffers
-- [audio-speaker](https://github.com/audiojs/audio-speaker) — output PCM audio to system speakers
+- [decode](https://github.com/audiojs/decode) — decode audio files to PCM buffers
+- [speaker](https://github.com/audiojs/speaker) — output PCM audio to system speakers
 - [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) — browser built-in audio; basic biquad shapes only, requires `AudioContext`
 
 
