@@ -40,7 +40,8 @@ import * as filter from '@audio/filter'
 import { aWeighting, kWeighting } from '@audio/weighting'
 import { gammatone, melBank } from '@audio/auditory'
 import { moogLadder, oberheim } from '@audio/filter'
-import { vocoder, lpcAnalysis } from '@audio/speech'
+import vocoder from '@audio/speech-vocoder'
+import { lpcAnalysis } from '@audio/speech-lpc'
 import { parametricEq, crossover, baxandall, tilt, lowShelf, highShelf } from '@audio/eq'
 import { dcBlocker, notch, lowpass, highpass, bandpass, resonator } from '@audio/filter'
 ```
@@ -457,7 +458,7 @@ Parallel resonator bank — each peak models one vocal tract resonance (formant)
 **Defaults**: F1=730 Hz, F2=1090 Hz, F3=2440 Hz (open vowel /a/)
 
 ```js
-import { formant } from '@audio/speech'
+import formant from '@audio/speech-formant'
 
 formant(excitation, { fs: 44100 })   // vowel /a/ (default)
 
@@ -484,7 +485,7 @@ Note: takes two separate buffers, returns a new buffer (does not modify in-place
 **Band count**: 8 = robotic effect; 16 = classic vocoder sound; 32+ = more speech intelligibility
 
 ```js
-import { vocoder } from '@audio/speech'
+import vocoder from '@audio/speech-vocoder'
 
 // carrier: pitched source (sawtooth, buzz, noise...)
 // modulator: signal whose spectral shape to impose (voice, instrument...)
@@ -504,7 +505,7 @@ Linear Predictive Coding — estimates the vocal tract transfer function from a 
 **Round-trip**: `lpcAnalysis` → `lpcSynthesize` recovers the original signal exactly
 
 ```js
-import { lpcAnalysis, lpcSynthesize } from '@audio/speech'
+import { lpcAnalysis, lpcSynthesize } from '@audio/speech-lpc'
 
 // Analysis: extract vocal tract model
 let { coefs, gain, residual } = lpcAnalysis(speechFrame, { order: 12 })
@@ -617,7 +618,7 @@ Takes two separate channel buffers, modifies both in-place.
 **Returns**: `{ left, right }` (both also modified in-place)
 
 ```js
-import { crossfeed } from '@audio/eq'
+import { crossfeed } from '@audio/spatial'
 
 crossfeed(left, right, { fc: 700, level: 0.3, fs: 44100 })
 ```
@@ -890,7 +891,7 @@ Shapes white noise to $1/f$ spectrum — equal energy per octave.
 **Implementation**: Paul Kellet's refined pink-noise filter — 7 cascaded first-order IIR stages with published fixed coefficients (musicdsp.org), no stochastic counters
 
 ```js
-import { pinkNoise } from '@audio/filter'
+import { pinkNoise } from '@audio/synth'
 
 let buf = new Float64Array(1024)
 for (let i = 0; i < buf.length; i++) buf[i] = Math.random() * 2 - 1
