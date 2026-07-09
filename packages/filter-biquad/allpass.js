@@ -4,8 +4,7 @@
  * @module  audio-filter/effect/allpass
  */
 
-import { allpass as biquadAllpass } from 'digital-filter/iir/biquad.js'
-import filter from 'digital-filter/core/filter.js'
+import { allpass as biquadAllpass, filter } from '@audio/biquad'
 
 let {sin, cos, PI} = Math
 

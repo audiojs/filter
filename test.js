@@ -1,3 +1,4 @@
+import './test/biquad.js'
 import './test/analog.js'
 import './test/speech.js'
 import './test/effect.js'

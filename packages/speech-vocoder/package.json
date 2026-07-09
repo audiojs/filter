@@ -1,6 +1,6 @@
 {
   "name": "@audio/speech-vocoder",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Channel vocoder",
   "type": "module",
   "sideEffects": false,
@@ -14,7 +14,7 @@
     "vocoder.d.ts"
   ],
   "dependencies": {
-    "digital-filter": "^2.0.0"
+    "@audio/biquad": "^1.1.0"
   },
   "keywords": [
     "audio",

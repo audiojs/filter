@@ -77,7 +77,8 @@
   },
   "devDependencies": {
     "tst": "^9.4.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "digital-filter": "^2.3.0"
   },
   "workspaces": [
     "packages/*"

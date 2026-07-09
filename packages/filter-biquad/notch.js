@@ -5,8 +5,7 @@
  * @module  audio-filter/effect/notch
  */
 
-import { notch as biquadNotch } from 'digital-filter/iir/biquad.js'
-import filter from 'digital-filter/core/filter.js'
+import { notch as biquadNotch, filter } from '@audio/biquad'
 
 export default function notch (data, params) {
 	let fc = params.fc, Q = params.Q == null ? 30 : params.Q, fs = params.fs || 44100

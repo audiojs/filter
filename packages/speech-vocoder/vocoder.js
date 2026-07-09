@@ -5,8 +5,7 @@
  * @module  audio-filter/speech/vocoder
  */
 
-import { bandpass2 } from 'digital-filter/iir/biquad.js'
-import filter from 'digital-filter/core/filter.js'
+import { bandpass, filter } from '@audio/biquad'
 
 let {abs, exp} = Math
 function envelope (data, p) {
@@ -44,7 +43,7 @@ export default function vocoder (carrier, modulator, params) {
 		for (let i = 0; i < nBands; i++) {
 			let fc = fmin * Math.pow(fmax / fmin, i / (nBands - 1))
 			let Q = 5
-			let coefs = bandpass2(fc, Q, fs)
+			let coefs = bandpass(fc, Q, fs)
 			params._analysis.push({coefs})
 			params._synthesis.push({coefs})
 			params._envStates.push({attack: 0.005, release: 0.05, fs})

@@ -9,7 +9,7 @@
  * @module  audio-filter/effect/variable-bandwidth
  */
 
-import { lowpass, highpass, bandpass2 } from 'digital-filter/iir/biquad.js'
+import { lowpass, highpass, bandpass } from '@audio/biquad'
 
 let TAU = 0.005 // parameter smoothing time constant, seconds
 
@@ -23,7 +23,7 @@ export default function variableBandwidth (data, params) {
 	let fs = params.fs || 44100
 	let type = params.type || 'lowpass'
 
-	let fn = type === 'highpass' ? highpass : type === 'bandpass' ? bandpass2 : lowpass
+	let fn = type === 'highpass' ? highpass : type === 'bandpass' ? bandpass : lowpass
 
 	if (params._fcCur == null) { params._fcCur = fc; params._qCur = Q }
 	if (!params._state) params._state = [0, 0]

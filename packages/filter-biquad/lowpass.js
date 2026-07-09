@@ -5,8 +5,7 @@
  * @module  audio-filter/effect/lowpass
  */
 
-import { lowpass as biquadLp } from 'digital-filter/iir/biquad.js'
-import filter from 'digital-filter/core/filter.js'
+import { lowpass as biquadLp, filter } from '@audio/biquad'
 
 let butterworth
 

@@ -5,8 +5,7 @@
  * @module  audio-filter/effect/highpass
  */
 
-import { highpass as biquadHp } from 'digital-filter/iir/biquad.js'
-import filter from 'digital-filter/core/filter.js'
+import { highpass as biquadHp, filter } from '@audio/biquad'
 
 let butterworth
 

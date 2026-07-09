@@ -5,8 +5,7 @@
  * @module  audio-filter/effect/bandpass
  */
 
-import { bandpass as biquadBp } from 'digital-filter/iir/biquad.js'
-import filter from 'digital-filter/core/filter.js'
+import { bandpass as biquadBp, filter } from '@audio/biquad'
 
 /**
  * @param {Float32Array|Float64Array} data - Input (modified in-place)
