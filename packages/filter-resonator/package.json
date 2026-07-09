@@ -1,16 +1,18 @@
 {
   "name": "@audio/filter-resonator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Constant-peak-gain resonator (JOS two-zero form)",
   "type": "module",
   "sideEffects": false,
   "main": "resonator.js",
   "exports": {
     ".": "./resonator.js",
+    "./atom": "./atom.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "resonator.js"
+    "resonator.js",
+    "atom.js"
   ],
   "keywords": [
     "audio",
@@ -34,5 +36,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "atom": "./atom.js"
 }

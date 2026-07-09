@@ -1,16 +1,18 @@
 {
   "name": "@audio/filter-diode-ladder",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Diode ladder filter (Roland TB-303 / EMS VCS3 style)",
   "type": "module",
   "sideEffects": false,
   "main": "diode-ladder.js",
   "exports": {
     ".": "./diode-ladder.js",
+    "./atom": "./atom.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "diode-ladder.js"
+    "diode-ladder.js",
+    "atom.js"
   ],
   "keywords": [
     "audio",
@@ -34,5 +36,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "atom": "./atom.js"
 }

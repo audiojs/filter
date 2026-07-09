@@ -1,16 +1,18 @@
 {
   "name": "@audio/filter-preemphasis",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Pre-emphasis / de-emphasis filter",
   "type": "module",
   "sideEffects": false,
   "main": "pre-emphasis.js",
   "exports": {
     ".": "./pre-emphasis.js",
+    "./atom": "./atom.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "pre-emphasis.js"
+    "pre-emphasis.js",
+    "atom.js"
   ],
   "keywords": [
     "audio",
@@ -34,5 +36,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "atom": "./atom.js"
 }

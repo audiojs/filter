@@ -1,16 +1,18 @@
 {
   "name": "@audio/filter-oberheim",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Oberheim SEM state-variable filter (–12 dB/oct multimode)",
   "type": "module",
   "sideEffects": false,
   "main": "oberheim.js",
   "exports": {
     ".": "./oberheim.js",
+    "./atom": "./atom.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "oberheim.js"
+    "oberheim.js",
+    "atom.js"
   ],
   "keywords": [
     "audio",
@@ -34,5 +36,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "atom": "./atom.js"
 }
