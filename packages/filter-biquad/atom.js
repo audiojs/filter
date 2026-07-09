@@ -1,4 +1,4 @@
-// audio-module manifest — biquad filters with live freq/Q (native atoms re-derive
+// atom manifest — biquad filters with live freq/Q (native atoms re-derive
 // coefficients on param change; per-channel state rides the params objects).
 
 import hpFn from './highpass.js'
