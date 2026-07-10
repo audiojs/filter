@@ -64,6 +64,13 @@ export function emphasis(data: Buf, params?: EmphasisParams): Buf
 /** De-emphasis H(z) = 1/(1 − α·z⁻¹) */
 export function deemphasis(data: Buf, params?: EmphasisParams): Buf
 
+export interface DerivativeParams { [key: string]: unknown } // no options (FFmpeg aderivative has none) — params carries filter state
+export interface IntegralParams { leak?: number; [key: string]: unknown } // leak default 1 (exact running sum); <1 anti-drift extension
+/** Derivative (first difference) H(z) = 1 − z⁻¹ — FFmpeg aderivative */
+export function derivative(data: Buf, params?: DerivativeParams): Buf
+/** Integral (running sum) H(z) = 1/(1 − z⁻¹) at leak=1 — FFmpeg aintegral. leak<1 leaks the accumulator to stay finite on DC-biased material. */
+export function integral(data: Buf, params?: IntegralParams): Buf
+
 export interface ResonatorParams { fc: number; bw?: number; fs?: number; [key: string]: unknown } // bw default 50
 /** Constant-peak-gain resonator (JOS two-zero form) — modal synthesis (bells, drums, formants). Peak gain is exactly 0dB at fc for any bw. Throws if params.fc is omitted. */
 export function resonator(data: Buf, params: ResonatorParams): Buf

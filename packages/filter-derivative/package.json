@@ -1,0 +1,44 @@
+{
+  "name": "@audio/filter-derivative",
+  "version": "1.0.0",
+  "description": "Derivative / integral — FFmpeg aderivative/aintegral first-difference & running-sum pair",
+  "type": "module",
+  "sideEffects": false,
+  "main": "derivative.js",
+  "exports": {
+    ".": "./derivative.js",
+    "./audio": "./audio.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "derivative.js",
+    "audio.js"
+  ],
+  "keywords": [
+    "audio",
+    "dsp",
+    "filter",
+    "derivative",
+    "integral",
+    "aderivative",
+    "aintegral"
+  ],
+  "license": "MIT",
+  "author": "Dmitry Iv. <dfcreative@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/audiojs/filter.git",
+    "directory": "packages/filter-derivative"
+  },
+  "homepage": "https://github.com/audiojs/filter/tree/main/packages/filter-derivative",
+  "bugs": {
+    "url": "https://github.com/audiojs/filter/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "audio": "./audio.js"
+}

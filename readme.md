@@ -22,7 +22,7 @@ Canonical audio filter implementations.<br>
 <sub>[Graphic EQ](#graphic-eq) · [Parametric EQ](#parametric-eq) · [Crossover](#crossover) · [Crossfeed](#crossfeed) · [Shelving](#shelving) · [Baxandall](#baxandall) · [Tilt EQ](#tilt-eq)</sub>
 
 **[Effect](#effect)**<br>
-<sub>[DC blocker](#dc-blocker) · [Comb](#comb-filter) · [Allpass](#allpass) · [Pre-emphasis](#pre-emphasis--de-emphasis) · [Lowpass](#lowpass) · [Highpass](#highpass) · [Bandpass](#bandpass) · [Notch](#notch) · [Resonator](#resonator) · [Pink noise](#pink-noise) · [Spectral tilt](#spectral-tilt) · [Variable bandwidth](#variable-bandwidth)</sub>
+<sub>[DC blocker](#dc-blocker) · [Comb](#comb-filter) · [Allpass](#allpass) · [Pre-emphasis](#pre-emphasis--de-emphasis) · [Derivative / integral](#derivative--integral) · [Lowpass](#lowpass) · [Highpass](#highpass) · [Bandpass](#bandpass) · [Notch](#notch) · [Resonator](#resonator) · [Pink noise](#pink-noise) · [Spectral tilt](#spectral-tilt) · [Variable bandwidth](#variable-bandwidth)</sub>
 
 </td></tr></table>
 
@@ -771,6 +771,25 @@ deemphasis(buffer, { alpha: 0.97 })  // after decoding — exact inverse
 **Use when**: speech coding (GSM, AMR uses $\alpha = 0.97$), tape recording, FM broadcasting
 
 ![Pre-emphasis](plot/emphasis.svg) ![De-emphasis](plot/deemphasis.svg)
+
+
+### Derivative / integral
+
+First-difference and running-sum — an exact inverse pair (FFmpeg's `aderivative`/`aintegral`).
+
+$H_d(z) = 1 - z^{-1}$ (derivative) &nbsp;/&nbsp; $H_i(z) = \dfrac{1}{1 - z^{-1}}$ (integral, leak=1)
+
+**Inverse pair**: `integral` at `leak: 1` exactly reconstructs the input passed to `derivative` — the running sum telescopes<br>
+**Leak**: `leak < 1` bleeds the accumulator per sample so DC-biased material converges to a finite value ($\frac{x_{dc}}{1-\text{leak}}$) instead of drifting
+
+```js
+import { derivative, integral } from '@audio/filter'
+
+derivative(buffer, {})
+integral(buffer, { leak: 1 })    // 1 = exact FFmpeg aintegral; <1 for stability on real program material
+```
+
+**Use when**: edge/transient detection (derivative), reconstructing a signal from its differenced form (integral), envelope-adjacent accumulation
 
 
 ### Lowpass

@@ -1,6 +1,6 @@
 {
   "name": "@audio/filter",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "type": "module",
   "sideEffects": false,
   "description": "Audio-facing filters — umbrella for @audio/filter-* atoms (biquads, comb, resonator, DC blocker, pre-emphasis, spectral tilt, analog ladder models)",
@@ -66,19 +66,20 @@
     "@audio/filter-biquad": "^1.0.0",
     "@audio/filter-comb": "^1.0.0",
     "@audio/filter-dcblocker": "^1.0.0",
-    "@audio/filter-resonator": "^1.0.0",
-    "@audio/filter-variable": "^1.0.0",
-    "@audio/filter-preemphasis": "^1.0.0",
-    "@audio/filter-spectral-tilt": "^1.0.0",
-    "@audio/filter-moog-ladder": "^1.0.0",
+    "@audio/filter-derivative": "^1.0.0",
     "@audio/filter-diode-ladder": "^1.0.0",
     "@audio/filter-korg35": "^1.0.0",
-    "@audio/filter-oberheim": "^1.0.0"
+    "@audio/filter-moog-ladder": "^1.0.0",
+    "@audio/filter-oberheim": "^1.0.0",
+    "@audio/filter-preemphasis": "^1.0.0",
+    "@audio/filter-resonator": "^1.0.0",
+    "@audio/filter-spectral-tilt": "^1.0.0",
+    "@audio/filter-variable": "^1.0.0"
   },
   "devDependencies": {
+    "digital-filter": "^2.3.0",
     "tst": "^9.4.0",
-    "typescript": "^5.8.2",
-    "digital-filter": "^2.3.0"
+    "typescript": "^5.8.2"
   },
   "workspaces": [
     "packages/*"
