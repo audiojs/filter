@@ -1,9 +1,9 @@
-// atom manifest — diode ladder ZDF filter (TB-303 class; per-stage tanh, self-oscillation ≈1.15) per @audio/atom CONTRACT.
+// atom manifest — Korg35 MS-20 ZDF filter (2-pole, nonlinear feedback bite; no self-oscillation) per @audio/compile CONTRACT.
 // The kernel keeps its state on the params object — the manifest owns one persistent
 // params object per channel, so state survives across blocks; params are live.
-import diodeLadder from './diode-ladder.js'
+import korg35Fn from './korg35.js'
 
-export const diode = (ctx) => {
+export const korg35 = (ctx) => {
 	const chP = []
 	for (let c = 0, N = ctx.maxChannels ?? 8; c < N; c++) chP.push({ fs: ctx.sampleRate })
 	return (inputs, outputs, params) => {
@@ -14,14 +14,16 @@ export const diode = (ctx) => {
 			p.fc = params.fc[0]
 			p.resonance = params.resonance[0]
 			p.drive = params.drive[0]
+			p.type = params.type
 			out[c].set(inp[c])
-			diodeLadder(out[c], p)
+			korg35Fn(out[c], p)
 		}
 	}
 }
-diode.channels = 'any'
-diode.params = {
+korg35.channels = 'any'
+korg35.params = {
 	fc:        { type: 'number', min: 20, max: 20000, default: 1000, unit: 'Hz', curve: 'log' },
-	resonance: { type: 'number', min: 0, max: 1.2, default: 0.5 },
+	resonance: { type: 'number', min: 0, max: 1, default: 0.5 },
 	drive:     { type: 'number', min: 0.1, max: 10, default: 1 },
+	type:      { type: 'enum', values: ['lowpass', 'highpass'], default: 'lowpass' },
 }

@@ -1,4 +1,4 @@
-// atom manifest — two-pole resonator (ringing bandpass at fc with bandwidth bw) per @audio/atom CONTRACT.
+// atom manifest — two-pole resonator (ringing bandpass at fc with bandwidth bw) per @audio/compile CONTRACT.
 // The kernel keeps its state on the params object — the manifest owns one persistent
 // params object per channel, so state survives across blocks; params are live.
 import resonatorFn from './resonator.js'

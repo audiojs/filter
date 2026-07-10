@@ -1,4 +1,4 @@
-// atom manifest — Oberheim SEM-class ZDF multimode (LP/HP/BP/notch from one 2-pole core) per @audio/atom CONTRACT.
+// atom manifest — Oberheim SEM-class ZDF multimode (LP/HP/BP/notch from one 2-pole core) per @audio/compile CONTRACT.
 // The kernel keeps its state on the params object — the manifest owns one persistent
 // params object per channel, so state survives across blocks; params are live.
 import oberheimFn from './oberheim.js'

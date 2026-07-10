@@ -1,4 +1,4 @@
-// atom manifest — comb filter (feedforward FIR notches / feedback IIR resonances) per @audio/atom CONTRACT.
+// atom manifest — comb filter (feedforward FIR notches / feedback IIR resonances) per @audio/compile CONTRACT.
 // The kernel keeps its state on the params object — the manifest owns one persistent
 // params object per channel, so state survives across blocks; params are live.
 // delay is declared in ms and mapped to samples; the kernel resizes (and resets) its own buffer on change.

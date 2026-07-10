@@ -1,4 +1,4 @@
-// atom manifest — variable-bandwidth filter (per-sample smoothed fc/Q trajectory — click-free sweeps) per @audio/atom CONTRACT.
+// atom manifest — variable-bandwidth filter (per-sample smoothed fc/Q trajectory — click-free sweeps) per @audio/compile CONTRACT.
 // The kernel keeps its state on the params object — the manifest owns one persistent
 // params object per channel, so state survives across blocks; params are live.
 import variableBandwidth from './variable-bandwidth.js'

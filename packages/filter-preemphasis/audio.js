@@ -1,4 +1,4 @@
-// atom manifest — pre-emphasis / de-emphasis one-pole pair per @audio/atom CONTRACT.
+// atom manifest — pre-emphasis / de-emphasis one-pole pair per @audio/compile CONTRACT.
 // One file, two atoms (the contract allows many exports per file). The kernels keep
 // x1/y1 state on the params object — one persistent object per channel; alpha is live.
 

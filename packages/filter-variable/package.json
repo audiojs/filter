@@ -1,18 +1,18 @@
 {
   "name": "@audio/filter-variable",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Variable-bandwidth filter with per-sample smoothed coefficient trajectory",
   "type": "module",
   "sideEffects": false,
   "main": "variable-bandwidth.js",
   "exports": {
     ".": "./variable-bandwidth.js",
-    "./atom": "./atom.js",
+    "./audio": "./audio.js",
     "./package.json": "./package.json"
   },
   "files": [
     "variable-bandwidth.js",
-    "atom.js"
+    "audio.js"
   ],
   "dependencies": {
     "@audio/biquad": "^1.1.0"
@@ -40,5 +40,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "atom": "./atom.js"
+  "audio": "./audio.js"
 }

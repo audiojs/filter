@@ -1,9 +1,9 @@
-// atom manifest — Moog 4-pole ZDF ladder (−24 dB/oct LP, self-oscillates at resonance 1) per @audio/atom CONTRACT.
+// atom manifest — diode ladder ZDF filter (TB-303 class; per-stage tanh, self-oscillation ≈1.15) per @audio/compile CONTRACT.
 // The kernel keeps its state on the params object — the manifest owns one persistent
 // params object per channel, so state survives across blocks; params are live.
-import moogLadder from './moog-ladder.js'
+import diodeLadder from './diode-ladder.js'
 
-export const moog = (ctx) => {
+export const diode = (ctx) => {
 	const chP = []
 	for (let c = 0, N = ctx.maxChannels ?? 8; c < N; c++) chP.push({ fs: ctx.sampleRate })
 	return (inputs, outputs, params) => {
@@ -15,13 +15,13 @@ export const moog = (ctx) => {
 			p.resonance = params.resonance[0]
 			p.drive = params.drive[0]
 			out[c].set(inp[c])
-			moogLadder(out[c], p)
+			diodeLadder(out[c], p)
 		}
 	}
 }
-moog.channels = 'any'
-moog.params = {
+diode.channels = 'any'
+diode.params = {
 	fc:        { type: 'number', min: 20, max: 20000, default: 1000, unit: 'Hz', curve: 'log' },
-	resonance: { type: 'number', min: 0, max: 1, default: 0 },
+	resonance: { type: 'number', min: 0, max: 1.2, default: 0.5 },
 	drive:     { type: 'number', min: 0.1, max: 10, default: 1 },
 }

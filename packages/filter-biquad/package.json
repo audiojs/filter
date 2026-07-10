@@ -1,6 +1,6 @@
 {
   "name": "@audio/filter-biquad",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Audio-facing biquad filters — highpass, lowpass, bandpass, notch, allpass (Hz/Q params, per-channel state)",
   "type": "module",
   "sideEffects": false,
@@ -13,7 +13,7 @@
     "./bandpass": "./bandpass.js",
     "./notch": "./notch.js",
     "./allpass": "./allpass.js",
-    "./atom": "./atom.js"
+    "./audio": "./audio.js"
   },
   "files": [
     "index.js",
@@ -22,7 +22,7 @@
     "bandpass.js",
     "notch.js",
     "allpass.js",
-    "atom.js"
+    "audio.js"
   ],
   "dependencies": {
     "@audio/biquad": "^1.1.0"
@@ -55,5 +55,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "atom": "./atom.js"
+  "audio": "./audio.js"
 }

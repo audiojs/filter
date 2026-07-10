@@ -1,18 +1,18 @@
 {
   "name": "@audio/filter-spectral-tilt",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Spectral tilt filter: apply a constant dB/octave slope to the spectrum",
   "type": "module",
   "sideEffects": false,
   "main": "spectral-tilt.js",
   "exports": {
     ".": "./spectral-tilt.js",
-    "./atom": "./atom.js",
+    "./audio": "./audio.js",
     "./package.json": "./package.json"
   },
   "files": [
     "spectral-tilt.js",
-    "atom.js"
+    "audio.js"
   ],
   "keywords": [
     "audio",
@@ -37,5 +37,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "atom": "./atom.js"
+  "audio": "./audio.js"
 }
