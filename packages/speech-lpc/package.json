@@ -1,6 +1,6 @@
 {
   "name": "@audio/speech-lpc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Linear Predictive Coding analysis/synthesis",
   "type": "module",
   "sideEffects": false,
