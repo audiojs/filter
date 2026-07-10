@@ -13,6 +13,9 @@
     "lpc.js",
     "lpc.d.ts"
   ],
+  "dependencies": {
+    "@audio/lpc": "^1.0.0"
+  },
   "keywords": [
     "audio",
     "dsp",

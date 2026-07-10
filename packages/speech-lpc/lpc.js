@@ -1,9 +1,12 @@
 /**
  * Linear Predictive Coding analysis/synthesis.
- * Autocorrelation method with Levinson-Durbin recursion.
+ * Autocorrelation method with Levinson-Durbin recursion (the AR-fit math is
+ * @audio/lpc's autocorr+levinson — this atom keeps its own gain/residual convention).
  *
  * @module  audio-filter/speech/lpc
  */
+
+import { autocorr, levinson } from '@audio/lpc'
 
 /**
  * LPC analysis via autocorrelation + Levinson-Durbin.
@@ -15,35 +18,14 @@ export function lpcAnalysis(data, params) {
 	let order = params.order || 12
 	let N = data.length
 
-	// Autocorrelation r[0..order], normalized per-sample (Rabiner & Schafer biased
-	// estimator) so E/gain are frame-length invariant, not sum-length dependent
-	let r = new Float64Array(order + 1)
-	for (let i = 0; i <= order; i++) {
-		for (let n = i; n < N; n++) r[i] += data[n] * data[n - i]
-		r[i] /= N
-	}
+	// @audio/lpc's autocorr is unnormalized (Σ, not Σ/N); reflection coefficients and
+	// a[] are scale-invariant under that (a constant factor on R cancels in the k_i
+	// ratio), so coefs come out identical to the old locally-normalized r[i]/=N version —
+	// only the residual energy e scales by N, corrected below (Rabiner & Schafer biased
+	// estimator ⇒ per-sample E/gain, frame-length invariant).
+	let { a, e } = levinson(autocorr(data, order), order)
 
-	// Levinson-Durbin
-	let a = new Float64Array(order + 1)
-	let prev = new Float64Array(order + 1)
-	a[0] = 1
-	let E = r[0]
-
-	for (let i = 1; i <= order; i++) {
-		let sum = 0
-		for (let j = 1; j < i; j++) sum += a[j] * r[i - j]
-		let k = -(r[i] + sum) / E
-
-		// Copy current coefficients
-		prev.set(a)
-
-		for (let j = 1; j < i; j++) a[j] = prev[j] + k * prev[i - j]
-		a[i] = k
-
-		E *= (1 - k * k)
-	}
-
-	let gain = Math.sqrt(E) // per-sample prediction-error std (E is already per-sample)
+	let gain = Math.sqrt(e / N) // per-sample prediction-error std
 	let coefs = a.subarray(1) // a[1..order] of A(z) = 1 + Σ a_k z⁻ᵏ
 
 	// Whitening filter e[n] = A(z)x[n] = x[n] + Σ coefs[k]·x[n−1−k], normalized to unit power

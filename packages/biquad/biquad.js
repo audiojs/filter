@@ -101,3 +101,10 @@ export function magnitude (c, f, fs = 44100) {
 	let dr = 1 + c.a1 * cos1 + c.a2 * cos2, di = -(c.a1 * sin1 + c.a2 * sin2)
 	return Math.hypot(nr, ni) / Math.hypot(dr, di)
 }
+
+/** |H(f)| of a cascade (array of SOS sections) — product of each section's magnitude. */
+export function cascadeMagnitude (sos, f, fs = 44100) {
+	let mag = 1
+	for (let c of sos) mag *= magnitude(c, f, fs)
+	return mag
+}

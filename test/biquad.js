@@ -45,6 +45,15 @@ test('biquad — magnitude responses honor the spec', () => {
 	almost(bq.magnitude(bq.bandpass(1500, 2, fs), 1500, fs), 1, 0.01, 'bandpass 0 dB peak')
 })
 
+test('biquad — cascadeMagnitude ≡ product of per-section magnitude', () => {
+	let sos = [bq.lowpass(2000, 0.707, fs), bq.peaking(500, 1, fs, 6), bq.highpass(80, 0.707, fs)]
+	for (let f of [100, 500, 2000, 8000]) {
+		let expected = sos.reduce((m, c) => m * bq.magnitude(c, f, fs), 1)
+		almost(bq.cascadeMagnitude(sos, f, fs), expected, 1e-12, `f=${f}`)
+	}
+	almost(bq.cascadeMagnitude([], 1000, fs), 1, 1e-12, 'empty cascade ⇒ unity')
+})
+
 test('biquad — stateful chunked processing ≡ one pass', () => {
 	let c = bq.lowpass(2000, 0.707, fs)
 	let x = sine(440, 8192)
