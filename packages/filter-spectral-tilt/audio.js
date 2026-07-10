@@ -20,5 +20,5 @@ export const spectralTilt = (ctx) => {
 }
 spectralTilt.channels = 'any'
 spectralTilt.params = {
-	slope: { type: 'number', min: -6, max: 6, default: -3, unit: 'dB/oct' },
+	slope: { type: 'number', min: -6, max: 6, default: 0, unit: 'dB/oct' },
 }

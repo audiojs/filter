@@ -23,7 +23,7 @@ export const korg35 = (ctx) => {
 korg35.channels = 'any'
 korg35.params = {
 	fc:        { type: 'number', min: 20, max: 20000, default: 1000, unit: 'Hz', curve: 'log' },
-	resonance: { type: 'number', min: 0, max: 1, default: 0.5 },
+	resonance: { type: 'number', min: 0, max: 1, default: 0 },
 	drive:     { type: 'number', min: 0.1, max: 10, default: 1 },
 	type:      { type: 'enum', values: ['lowpass', 'highpass'], default: 'lowpass' },
 }

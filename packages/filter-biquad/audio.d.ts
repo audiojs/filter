@@ -11,9 +11,9 @@ type Process = (inputs: Float32Array[][], outputs: Float32Array[][], params: Liv
 /** Chainable-host options for 'bandpass' */
 export interface BandpassOptions {
   /** 20..20000 Hz (default 1000) */
-  "freq"?: Auto
+  "fc"?: Auto
   /** 0.1..20 (default 0.707) */
-  "q"?: Auto
+  "Q"?: Auto
   at?: number | string
   duration?: number | string
 }
@@ -23,18 +23,18 @@ export declare const bandpass: {
   channels: "any"
   params: {
     /** 20..20000 Hz (default 1000) */
-    "freq": { type: "number", default: 1000 }
+    "fc": { type: "number", default: 1000 }
     /** 0.1..20 (default 0.707) */
-    "q": { type: "number", default: 0.707 }
+    "Q": { type: "number", default: 0.707 }
   }
 }
 
 /** Chainable-host options for 'highpass' */
 export interface HighpassOptions {
   /** 20..20000 Hz (default 1000) */
-  "freq"?: Auto
+  "fc"?: Auto
   /** 0.1..20 (default 0.707) */
-  "q"?: Auto
+  "Q"?: Auto
   at?: number | string
   duration?: number | string
 }
@@ -44,18 +44,18 @@ export declare const highpass: {
   channels: "any"
   params: {
     /** 20..20000 Hz (default 1000) */
-    "freq": { type: "number", default: 1000 }
+    "fc": { type: "number", default: 1000 }
     /** 0.1..20 (default 0.707) */
-    "q": { type: "number", default: 0.707 }
+    "Q": { type: "number", default: 0.707 }
   }
 }
 
 /** Chainable-host options for 'lowpass' */
 export interface LowpassOptions {
   /** 20..20000 Hz (default 1000) */
-  "freq"?: Auto
+  "fc"?: Auto
   /** 0.1..20 (default 0.707) */
-  "q"?: Auto
+  "Q"?: Auto
   at?: number | string
   duration?: number | string
 }
@@ -65,8 +65,8 @@ export declare const lowpass: {
   channels: "any"
   params: {
     /** 20..20000 Hz (default 1000) */
-    "freq": { type: "number", default: 1000 }
+    "fc": { type: "number", default: 1000 }
     /** 0.1..20 (default 0.707) */
-    "q": { type: "number", default: 0.707 }
+    "Q": { type: "number", default: 0.707 }
   }
 }

@@ -12,7 +12,7 @@ type Process = (inputs: Float32Array[][], outputs: Float32Array[][], params: Liv
 export interface OberheimOptions {
   /** 20..20000 Hz (default 1000) */
   "fc"?: Auto
-  /** 0..1 (default 0.5) */
+  /** 0..1 (default 0) */
   "resonance"?: Auto
   /** default "lowpass" */
   "type"?: "lowpass" | "highpass" | "bandpass" | "notch"
@@ -26,8 +26,8 @@ export declare const oberheim: {
   params: {
     /** 20..20000 Hz (default 1000) */
     "fc": { type: "number", default: 1000 }
-    /** 0..1 (default 0.5) */
-    "resonance": { type: "number", default: 0.5 }
+    /** 0..1 (default 0) */
+    "resonance": { type: "number", default: 0 }
     /** default "lowpass" */
     "type": { type: "enum", values: ["lowpass","highpass","bandpass","notch"], default: "lowpass" }
   }

@@ -1,6 +1,6 @@
 {
   "name": "@audio/filter-resonator",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Constant-peak-gain resonator (JOS two-zero form)",
   "type": "module",
   "sideEffects": false,

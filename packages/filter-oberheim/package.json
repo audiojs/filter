@@ -1,6 +1,6 @@
 {
   "name": "@audio/filter-oberheim",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Oberheim SEM state-variable filter (–12 dB/oct multimode)",
   "type": "module",
   "sideEffects": false,

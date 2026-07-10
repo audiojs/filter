@@ -10,7 +10,7 @@ type Process = (inputs: Float32Array[][], outputs: Float32Array[][], params: Liv
 
 /** Chainable-host options for 'spectralTilt' */
 export interface SpectralTiltOptions {
-  /** -6..6 dB/oct (default -3) */
+  /** -6..6 dB/oct (default 0) */
   "slope"?: Auto
   at?: number | string
   duration?: number | string
@@ -20,7 +20,7 @@ export declare const spectralTilt: {
   (ctx: Ctx): Process
   channels: "any"
   params: {
-    /** -6..6 dB/oct (default -3) */
-    "slope": { type: "number", default: -3 }
+    /** -6..6 dB/oct (default 0) */
+    "slope": { type: "number", default: 0 }
   }
 }

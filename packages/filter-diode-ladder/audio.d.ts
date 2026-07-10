@@ -12,7 +12,7 @@ type Process = (inputs: Float32Array[][], outputs: Float32Array[][], params: Liv
 export interface DiodeOptions {
   /** 20..20000 Hz (default 1000) */
   "fc"?: Auto
-  /** 0..1.2 (default 0.5) */
+  /** 0..1.2 (default 0) */
   "resonance"?: Auto
   /** 0.1..10 (default 1) */
   "drive"?: Auto
@@ -26,8 +26,8 @@ export declare const diode: {
   params: {
     /** 20..20000 Hz (default 1000) */
     "fc": { type: "number", default: 1000 }
-    /** 0..1.2 (default 0.5) */
-    "resonance": { type: "number", default: 0.5 }
+    /** 0..1.2 (default 0) */
+    "resonance": { type: "number", default: 0 }
     /** 0.1..10 (default 1) */
     "drive": { type: "number", default: 1 }
   }

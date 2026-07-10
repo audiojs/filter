@@ -22,5 +22,5 @@ resonator.channels = 'any'
 resonator.tail = 0.5
 resonator.params = {
 	fc: { type: 'number', min: 20, max: 20000, default: 440, unit: 'Hz', curve: 'log' },
-	bw: { type: 'number', min: 1, max: 2000, default: 100, unit: 'Hz', curve: 'log' },
+	bw: { type: 'number', min: 1, max: 2000, default: 50, unit: 'Hz', curve: 'log' },
 }

@@ -12,7 +12,7 @@ type Process = (inputs: Float32Array[][], outputs: Float32Array[][], params: Liv
 export interface ResonatorOptions {
   /** 20..20000 Hz (default 440) */
   "fc"?: Auto
-  /** 1..2000 Hz (default 100) */
+  /** 1..2000 Hz (default 50) */
   "bw"?: Auto
   at?: number | string
   duration?: number | string
@@ -25,7 +25,7 @@ export declare const resonator: {
   params: {
     /** 20..20000 Hz (default 440) */
     "fc": { type: "number", default: 440 }
-    /** 1..2000 Hz (default 100) */
-    "bw": { type: "number", default: 100 }
+    /** 1..2000 Hz (default 50) */
+    "bw": { type: "number", default: 50 }
   }
 }

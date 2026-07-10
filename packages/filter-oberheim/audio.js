@@ -22,6 +22,6 @@ export const oberheim = (ctx) => {
 oberheim.channels = 'any'
 oberheim.params = {
 	fc:        { type: 'number', min: 20, max: 20000, default: 1000, unit: 'Hz', curve: 'log' },
-	resonance: { type: 'number', min: 0, max: 1, default: 0.5 },
+	resonance: { type: 'number', min: 0, max: 1, default: 0 },
 	type:      { type: 'enum', values: ['lowpass', 'highpass', 'bandpass', 'notch'], default: 'lowpass' },
 }
