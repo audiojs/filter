@@ -7,12 +7,16 @@
   "main": "pre-emphasis.js",
   "exports": {
     ".": "./pre-emphasis.js",
-    "./audio": "./audio.js",
+    "./audio": {
+      "types": "./audio.d.ts",
+      "default": "./audio.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
     "pre-emphasis.js",
-    "audio.js"
+    "audio.js",
+    "audio.d.ts"
   ],
   "keywords": [
     "audio",

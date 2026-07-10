@@ -13,7 +13,10 @@
     "./bandpass": "./bandpass.js",
     "./notch": "./notch.js",
     "./allpass": "./allpass.js",
-    "./audio": "./audio.js"
+    "./audio": {
+      "types": "./audio.d.ts",
+      "default": "./audio.js"
+    }
   },
   "files": [
     "index.js",
@@ -22,7 +25,8 @@
     "bandpass.js",
     "notch.js",
     "allpass.js",
-    "audio.js"
+    "audio.js",
+    "audio.d.ts"
   ],
   "dependencies": {
     "@audio/biquad": "^1.1.0"

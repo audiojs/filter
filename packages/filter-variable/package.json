@@ -7,12 +7,16 @@
   "main": "variable-bandwidth.js",
   "exports": {
     ".": "./variable-bandwidth.js",
-    "./audio": "./audio.js",
+    "./audio": {
+      "types": "./audio.d.ts",
+      "default": "./audio.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
     "variable-bandwidth.js",
-    "audio.js"
+    "audio.js",
+    "audio.d.ts"
   ],
   "dependencies": {
     "@audio/biquad": "^1.1.0"

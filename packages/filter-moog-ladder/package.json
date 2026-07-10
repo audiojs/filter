@@ -7,12 +7,16 @@
   "main": "moog-ladder.js",
   "exports": {
     ".": "./moog-ladder.js",
-    "./audio": "./audio.js",
+    "./audio": {
+      "types": "./audio.d.ts",
+      "default": "./audio.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
     "moog-ladder.js",
-    "audio.js"
+    "audio.js",
+    "audio.d.ts"
   ],
   "keywords": [
     "audio",
