@@ -1,6 +1,6 @@
 {
   "name": "@audio/filter-moog-ladder",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Moog 4-pole transistor ladder filter (-24 dB/oct lowpass with resonance)",
   "type": "module",
   "sideEffects": false,

@@ -1,6 +1,6 @@
 {
   "name": "@audio/filter-variable",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Variable-bandwidth filter with per-sample smoothed coefficient trajectory",
   "type": "module",
   "sideEffects": false,

@@ -1,6 +1,6 @@
 {
   "name": "@audio/filter-derivative",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Derivative / integral — FFmpeg aderivative/aintegral first-difference & running-sum pair",
   "type": "module",
   "sideEffects": false,
