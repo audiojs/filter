@@ -1,12 +1,16 @@
 {
   "name": "@audio/filter-variable",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Variable-bandwidth filter with per-sample smoothed coefficient trajectory",
   "type": "module",
   "sideEffects": false,
   "main": "variable-bandwidth.js",
+  "types": "./variable-bandwidth.d.ts",
   "exports": {
-    ".": "./variable-bandwidth.js",
+    ".": {
+      "types": "./variable-bandwidth.d.ts",
+      "default": "./variable-bandwidth.js"
+    },
     "./audio": {
       "types": "./audio.d.ts",
       "default": "./audio.js"
@@ -15,6 +19,7 @@
   },
   "files": [
     "variable-bandwidth.js",
+    "variable-bandwidth.d.ts",
     "audio.js",
     "audio.d.ts"
   ],
@@ -44,5 +49,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "audio": "./audio.js"
+  "audio": "./audio.js",
+  "funding": "https://github.com/sponsors/audiojs"
 }

@@ -1,16 +1,21 @@
 {
   "name": "@audio/biquad",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "type": "module",
   "sideEffects": false,
   "description": "The audio-side biquad — RBJ cookbook coefficients (Web Audio conventions) + stateful SOS kernel (process/step/cascade/filter)",
   "main": "biquad.js",
+  "types": "./biquad.d.ts",
   "exports": {
-    ".": "./biquad.js",
+    ".": {
+      "types": "./biquad.d.ts",
+      "default": "./biquad.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
-    "biquad.js"
+    "biquad.js",
+    "biquad.d.ts"
   ],
   "keywords": [
     "audio",
@@ -36,5 +41,6 @@
   "homepage": "https://github.com/audiojs/filter/tree/main/packages/biquad",
   "bugs": {
     "url": "https://github.com/audiojs/filter/issues"
-  }
+  },
+  "funding": "https://github.com/sponsors/audiojs"
 }

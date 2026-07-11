@@ -1,12 +1,16 @@
 {
   "name": "@audio/filter-preemphasis",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Pre-emphasis / de-emphasis filter",
   "type": "module",
   "sideEffects": false,
   "main": "pre-emphasis.js",
+  "types": "./pre-emphasis.d.ts",
   "exports": {
-    ".": "./pre-emphasis.js",
+    ".": {
+      "types": "./pre-emphasis.d.ts",
+      "default": "./pre-emphasis.js"
+    },
     "./audio": {
       "types": "./audio.d.ts",
       "default": "./audio.js"
@@ -15,6 +19,7 @@
   },
   "files": [
     "pre-emphasis.js",
+    "pre-emphasis.d.ts",
     "audio.js",
     "audio.d.ts"
   ],
@@ -41,5 +46,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "audio": "./audio.js"
+  "audio": "./audio.js",
+  "funding": "https://github.com/sponsors/audiojs"
 }

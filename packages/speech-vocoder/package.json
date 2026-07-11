@@ -1,6 +1,6 @@
 {
   "name": "@audio/speech-vocoder",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Channel vocoder",
   "type": "module",
   "sideEffects": false,
@@ -39,5 +39,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "types": "vocoder.d.ts"
+  "types": "vocoder.d.ts",
+  "funding": "https://github.com/sponsors/audiojs"
 }

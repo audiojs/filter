@@ -1,12 +1,16 @@
 {
   "name": "@audio/filter-dcblocker",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "DC blocking filter",
   "type": "module",
   "sideEffects": false,
   "main": "dc-blocker.js",
+  "types": "./dc-blocker.d.ts",
   "exports": {
-    ".": "./dc-blocker.js",
+    ".": {
+      "types": "./dc-blocker.d.ts",
+      "default": "./dc-blocker.js"
+    },
     "./audio": {
       "types": "./audio.d.ts",
       "default": "./audio.js"
@@ -15,6 +19,7 @@
   },
   "files": [
     "dc-blocker.js",
+    "dc-blocker.d.ts",
     "audio.js",
     "audio.d.ts"
   ],
@@ -41,5 +46,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "audio": "./audio.js"
+  "audio": "./audio.js",
+  "funding": "https://github.com/sponsors/audiojs"
 }

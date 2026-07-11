@@ -1,6 +1,6 @@
 {
   "name": "@audio/speech-formant",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Parallel formant filter bank",
   "type": "module",
   "sideEffects": false,
@@ -39,5 +39,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "types": "formant.d.ts"
+  "types": "formant.d.ts",
+  "funding": "https://github.com/sponsors/audiojs"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@audio/speech-lpc",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Linear Predictive Coding analysis/synthesis",
   "type": "module",
   "sideEffects": false,
@@ -39,5 +39,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "types": "lpc.d.ts"
+  "types": "lpc.d.ts",
+  "funding": "https://github.com/sponsors/audiojs"
 }

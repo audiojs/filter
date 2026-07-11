@@ -1,6 +1,6 @@
 {
   "name": "@audio/filter",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "type": "module",
   "sideEffects": false,
   "description": "Audio-facing filters — umbrella for @audio/filter-* atoms (biquads, comb, resonator, DC blocker, pre-emphasis, spectral tilt, analog ladder models)",
@@ -87,5 +87,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "index.js"
+  "main": "index.js",
+  "funding": "https://github.com/sponsors/audiojs"
 }

@@ -1,12 +1,16 @@
 {
   "name": "@audio/filter-korg35",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Korg MS-20 style filter (Korg35)",
   "type": "module",
   "sideEffects": false,
   "main": "korg35.js",
+  "types": "./korg35.d.ts",
   "exports": {
-    ".": "./korg35.js",
+    ".": {
+      "types": "./korg35.d.ts",
+      "default": "./korg35.js"
+    },
     "./audio": {
       "types": "./audio.d.ts",
       "default": "./audio.js"
@@ -15,6 +19,7 @@
   },
   "files": [
     "korg35.js",
+    "korg35.d.ts",
     "audio.js",
     "audio.d.ts"
   ],
@@ -41,5 +46,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "audio": "./audio.js"
+  "audio": "./audio.js",
+  "funding": "https://github.com/sponsors/audiojs"
 }

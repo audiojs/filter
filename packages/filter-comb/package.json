@@ -1,12 +1,16 @@
 {
   "name": "@audio/filter-comb",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Comb filter — feedforward (FIR) and feedback (IIR)",
   "type": "module",
   "sideEffects": false,
   "main": "comb.js",
+  "types": "./comb.d.ts",
   "exports": {
-    ".": "./comb.js",
+    ".": {
+      "types": "./comb.d.ts",
+      "default": "./comb.js"
+    },
     "./audio": {
       "types": "./audio.d.ts",
       "default": "./audio.js"
@@ -15,6 +19,7 @@
   },
   "files": [
     "comb.js",
+    "comb.d.ts",
     "audio.js",
     "audio.d.ts"
   ],
@@ -41,5 +46,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "audio": "./audio.js"
+  "audio": "./audio.js",
+  "funding": "https://github.com/sponsors/audiojs"
 }
