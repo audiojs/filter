@@ -55,16 +55,40 @@ export const state = () => new Float64Array(2)
 
 /** Process in place through one section; state persists across chunks. */
 export function process (data, c, s = state()) {
+	let b0 = c.b0, b1 = c.b1, b2 = c.b2, a1 = c.a1, a2 = c.a2
 	let z1 = s[0], z2 = s[1]
 	for (let i = 0, l = data.length; i < l; i++) {
 		let x = data[i]
-		let y = c.b0 * x + z1
-		z1 = c.b1 * x - c.a1 * y + z2
-		z2 = c.b2 * x - c.a2 * y
+		let y = b0 * x + z1
+		z1 = b1 * x - a1 * y + z2
+		z2 = b2 * x - a2 * y
 		data[i] = y
 	}
 	s[0] = z1; s[1] = z2
 	return data
+}
+
+// Two sections in one pass. Each section's recursion is a serial dependency chain; the
+// second section's chain is independent of the first's, so interleaving them lets both run
+// at once (~2× a section-per-pass cascade). The store/reload between sections keeps the
+// element type's rounding, so the output is bit-identical to two process() passes.
+function process2 (data, c, s, d, t) {
+	let b0 = c.b0, b1 = c.b1, b2 = c.b2, a1 = c.a1, a2 = c.a2
+	let e0 = d.b0, e1 = d.b1, e2 = d.b2, f1 = d.a1, f2 = d.a2
+	let z1 = s[0], z2 = s[1], w1 = t[0], w2 = t[1]
+	for (let i = 0, l = data.length; i < l; i++) {
+		let x = data[i]
+		let y = b0 * x + z1
+		z1 = b1 * x - a1 * y + z2
+		z2 = b2 * x - a2 * y
+		data[i] = y
+		x = data[i]
+		y = e0 * x + w1
+		w1 = e1 * x - f1 * y + w2
+		w2 = e2 * x - f2 * y
+		data[i] = y
+	}
+	s[0] = z1; s[1] = z2; t[0] = w1; t[1] = w2
 }
 
 /** One sample through one section — sidechain/per-sample use. */
@@ -78,7 +102,9 @@ export function step (c, s, x) {
 /** Cascade of sections. states: array of state() per section (created if absent). */
 export function cascade (data, coefs, states) {
 	states ??= coefs.map(() => state())
-	for (let i = 0; i < coefs.length; i++) process(data, coefs[i], states[i])
+	let i = 0
+	for (; i + 1 < coefs.length; i += 2) process2(data, coefs[i], states[i], coefs[i + 1], states[i + 1])
+	if (i < coefs.length) process(data, coefs[i], states[i])
 	return data
 }
 

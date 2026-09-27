@@ -1,6 +1,6 @@
 {
   "name": "@audio/biquad",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "type": "module",
   "sideEffects": false,
   "description": "The audio-side biquad — RBJ cookbook coefficients (Web Audio conventions) + stateful SOS kernel (process/step/cascade/filter)",
