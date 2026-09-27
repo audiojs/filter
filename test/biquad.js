@@ -73,7 +73,7 @@ test('biquad — step ≡ process, sample for sample', () => {
 	ok(maxDiff(viaProcess, viaStep) === 0, 'identical recurrence')
 })
 
-test('biquad — cascade ≡ section-by-section process, bit for bit, any section count', () => {
+test('biquad – cascade ≡ section-by-section process, bit for bit, any section count', () => {
 	let all = [bq.lowpass(1200, 0.707, fs), bq.highpass(80, 0.707, fs), bq.peaking(2000, 1, fs, 6), bq.highshelf(4000, 0.707, fs, -3), bq.notch(60, 4, fs)]
 	for (let Arr of [Float32Array, Float64Array]) for (let n = 1; n <= all.length; n++) {
 		let sos = all.slice(0, n), x = Arr.from(sine(440, 3000), (v, i) => v + Math.sin(i * 1.3) * 0.3)
