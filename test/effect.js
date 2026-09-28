@@ -91,6 +91,23 @@ test('allpass.second — unity magnitude across spectrum', () => {
 	almost(energy, 1, 0.01)
 })
 
+// A moving fc (automation, a slider) replaces the coefficients; the transposed-DF-II state carries on, as in the
+// Web Audio BiquadFilterNode. A reset per change restarted the filter at every block. Reference: the kernel over
+// the whole signal with the same coefficient schedule, one state.
+test('allpass.second: a moving fc keeps the state, equal to one continuous kernel', async () => {
+	let { allpass, process, state } = await import('@audio/biquad')
+	let fs = 44100, n = 8192, B = 128, p = {}, s = state(), max = 0
+	let x = new Float64Array(n).map((_, i) => 0.5 * Math.sin(2 * Math.PI * 440 * i / fs)), y = Float64Array.from(x), ref = Float64Array.from(x)
+	for (let i = 0; i < n; i += B) {
+		let fc = 500 + 2000 * i / n
+		Object.assign(p, { fc, Q: 0.707, fs })
+		audio.allpass.second(y.subarray(i, i + B), p)
+		process(ref.subarray(i, i + B), allpass(fc, 0.707, fs), s)
+	}
+	for (let i = 0; i < n; i++) max = Math.max(max, Math.abs(y[i] - ref[i]))
+	ok(max < 1e-12, `max |Δ| ${max.toExponential(1)}`)
+})
+
 test('emphasis + deemphasis round-trip = identity', () => {
 	// deemphasis is the exact linear inverse of emphasis (1/(1-az⁻¹) undoes (1-az⁻¹));
 	// float64 round-trip error is machine-epsilon-scale (~1e-16), not just "small"

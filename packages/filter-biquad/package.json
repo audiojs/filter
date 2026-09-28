@@ -1,6 +1,6 @@
 {
   "name": "@audio/filter-biquad",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Audio-facing biquad filters — highpass, lowpass, bandpass, notch, allpass (Hz/Q params, per-channel state)",
   "type": "module",
   "sideEffects": false,

@@ -36,8 +36,7 @@ export function first (data, params) {
 export function second (data, params) {
 	let fc = params.fc, Q = params.Q == null ? .707 : params.Q, fs = params.fs || 44100
 	if (!params.coefs || params._fc !== fc || params._Q !== Q || params._fs !== fs) {
-		params.coefs = [biquadAllpass(fc, Q, fs)]
-		params.state = null
+		params.coefs = [biquadAllpass(fc, Q, fs)] // the state stays: a moving parameter must not restart the filter
 		params._fc = fc
 		params._Q = Q
 		params._fs = fs
