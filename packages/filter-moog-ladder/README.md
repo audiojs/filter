@@ -1,6 +1,6 @@
 # @audio/filter-moog-ladder [![npm](https://img.shields.io/npm/v/@audio/filter-moog-ladder)](https://www.npmjs.com/package/@audio/filter-moog-ladder) [![MIT](https://img.shields.io/badge/MIT-%E0%A5%90-white)](https://github.com/krishnized/license)
 
-Moog 4-pole transistor ladder filter (-24 dB/oct lowpass with resonance)
+Moog 4-pole transistor ladder filter (-24 dB/oct lowpass with resonance; highpass, bandpass, 2-pole modes)
 
 ```
 npm install @audio/filter-moog-ladder
@@ -14,7 +14,8 @@ Robert Moog's 4-pole transistor ladder, 1965 — the most imitated filter in ele
 
 **Circuit**: 4 cascaded one-pole transistor ladder sections, global feedback from output to input<br>
 **Implementation**: Zero-delay feedback (ZDF) via trapezoidal integration — Zavalishin, *The Art of VA Filter Design* (2012), Ch. 6<br>
-**Response**: $-24\,\text{dB/oct}$ lowpass; resonance peak at $f_c$; self-oscillation (sine wave) at resonance=1<br>
+**Response**: $-24\,\text{dB/oct}$ lowpass; resonance peak at $f_c$; self-oscillation (sine wave) at resonance=1, at $f_c$<br>
+**Modes**: `type` lowpass, highpass or bandpass, `poles` 4 or 2 — the ladder's taps mixed by binomial weights, $(1-L)^n$ highpass, $L^n(1-L)^n$ bandpass (Zavalishin §5.5; JUCE's `LadderFilter` modes, Pedalboard's)<br>
 **Nonlinearity**: $\tanh$ saturation at input (transistor ladder characteristic)
 
 ```js
@@ -24,6 +25,9 @@ moogLadder(buffer, params)
 // Self-oscillation — runs indefinitely from a single impulse
 let silent = new Float64Array(4096); silent[0] = 0.01
 moogLadder(silent, { fc: 1000, resonance: 1, fs: 44100 })
+
+// Highpass, -12 dB/oct
+moogLadder(buffer, { fc: 300, resonance: 0.4, fs: 44100, type: 'highpass', poles: 2 })
 ```
 
 **Patent**: Moog (1965) US3475623<br>
@@ -35,6 +39,8 @@ moogLadder(silent, { fc: 1000, resonance: 1, fs: 44100 })
 | `resonance` | `0` | 0–1; feedback k = 4·resonance; self-oscillates exactly at 1 |
 | `fs` | `44100` | sample rate, Hz |
 | `drive` | `1` | input gain into the tanh saturation; `0` mutes the signal |
+| `type` | `'lowpass'` | `'lowpass'`, `'highpass'`, `'bandpass'` |
+| `poles` | `4` | `4`: -24 dB/oct (bandpass ±12); `2`: -12 dB/oct (bandpass ±6) |
 
 Pass the same `params` object on every call to persist the 4 stage states across blocks.
 

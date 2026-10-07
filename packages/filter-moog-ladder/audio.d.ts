@@ -16,6 +16,10 @@ export interface MoogOptions {
   "resonance"?: Auto
   /** 0.1..10 (default 1) */
   "drive"?: Auto
+  /** default "lowpass" */
+  "type"?: "lowpass" | "highpass" | "bandpass"
+  /** 2..4 (default 4) */
+  "poles"?: Auto
   at?: number | string
   duration?: number | string
 }
@@ -30,5 +34,9 @@ export declare const moog: {
     "resonance": { type: "number", default: 0 }
     /** 0.1..10 (default 1) */
     "drive": { type: "number", default: 1 }
+    /** default "lowpass" */
+    "type": { type: "enum", values: ["lowpass","highpass","bandpass"], default: "lowpass" }
+    /** 2..4 (default 4) */
+    "poles": { type: "number", default: 4 }
   }
 }

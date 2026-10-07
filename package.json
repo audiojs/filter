@@ -1,6 +1,6 @@
 {
   "name": "@audio/filter",
-  "version": "3.2.1",
+  "version": "3.3.0",
   "type": "module",
   "sideEffects": false,
   "description": "Audio-facing filters — umbrella for @audio/filter-* atoms (biquads, comb, resonator, DC blocker, pre-emphasis, spectral tilt, analog ladder models)",
@@ -69,7 +69,7 @@
     "@audio/filter-derivative": "^1.0.0",
     "@audio/filter-diode-ladder": "^1.0.0",
     "@audio/filter-korg35": "^1.0.0",
-    "@audio/filter-moog-ladder": "^1.0.0",
+    "@audio/filter-moog-ladder": "^1.2.0",
     "@audio/filter-oberheim": "^1.0.0",
     "@audio/filter-preemphasis": "^1.0.0",
     "@audio/filter-resonator": "^1.0.0",

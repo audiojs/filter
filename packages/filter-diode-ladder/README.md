@@ -14,7 +14,7 @@ Roland TB-303 / EMS VCS3 style — per-stage saturation gives the characteristic
 
 **Circuit**: Roland TB-303, EMS VCS3, EDP Wasp<br>
 **Key difference from Moog**: stages are bidirectionally coupled — no unity-gain buffers between them (unlike Moog), so each stage loads its neighbors; solved as one tridiagonal system per sample (Thomas algorithm) instead of Moog's simple forward cascade<br>
-**Character**: preserves more bass at high resonance than Moog — closed-form DC gain $1/(1 + 4\cdot\text{resonance})$ vs Moog's $1/(1 + 4\cdot\text{resonance}\cdot(1+G+G^2+G^3+G^4))$, $G<1$ — and more "squelchy"/aggressive due to the per-stage $\tanh$<br>
+**Character**: more "squelchy"/aggressive than Moog due to the per-stage $\tanh$; its coupled stages roll off below $f_c$; DC gain $1/(1 + 4\cdot\text{resonance})$, as Moog's<br>
 **Implementation**: ZDF (zero-delay feedback) via trapezoidal integration — Zavalishin, *The Art of VA Filter Design* (2012); Pirkle, *Designing Audio Effect Plugins in C++*, 2nd ed. (2019), Ch. 10<br>
 **Stability**: bounded (per-stage $\tanh$-saturated) across the documented 0–1 range and well beyond; self-oscillates near resonance≈1.15–1.2 — higher than Moog's exact 1, since the extra per-stage $\tanh$ adds damping
 

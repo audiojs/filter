@@ -9,12 +9,17 @@ export interface MoogLadderParams {
   fs?: number
   /** input drive into the tanh saturation at the filter input, default 1 — `drive: 0` mutes the signal (tanh(0)=0) rather than disabling saturation */
   drive?: number
+  /** default 'lowpass': the ladder's taps mixed into a highpass or bandpass (JUCE / Pedalboard LadderFilter modes) */
+  type?: 'lowpass' | 'highpass' | 'bandpass'
+  /** 4 (default): -24 dB/oct, bandpass ±12; 2: -12 dB/oct, bandpass ±6 */
+  poles?: 2 | 4
   [key: string]: unknown
 }
 
 /**
  * Moog 4-pole transistor ladder filter (Robert Moog, 1965) — zero-delay-feedback
- * (trapezoidal integration) cascade of 4 one-pole sections, -24 dB/oct, tanh
+ * (trapezoidal integration) cascade of 4 one-pole sections, -24 dB/oct (or its taps
+ * mixed: highpass, bandpass, 2 poles), tanh
  * saturation at the input only (unlike `diodeLadder`'s per-stage saturation).
  * In-place; stateful — pass the same `params` object across calls.
  */

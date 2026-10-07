@@ -1,4 +1,4 @@
-// atom manifest — Moog 4-pole ZDF ladder (−24 dB/oct LP, self-oscillates at resonance 1) per @audio/compile CONTRACT.
+// atom manifest — Moog 4-pole ZDF ladder (lowpass, highpass, bandpass; 2 or 4 poles; self-oscillates at resonance 1) per @audio/compile CONTRACT.
 // The kernel keeps its state on the params object — the manifest owns one persistent
 // params object per channel, so state survives across blocks; params are live.
 import moogLadder from './moog-ladder.js'
@@ -14,6 +14,8 @@ export const moog = (ctx) => {
 			p.fc = params.fc[0]
 			p.resonance = params.resonance[0]
 			p.drive = params.drive[0]
+			p.type = params.type
+			p.poles = params.poles[0]
 			out[c].set(inp[c])
 			moogLadder(out[c], p)
 		}
@@ -24,4 +26,6 @@ moog.params = {
 	fc:        { type: 'number', min: 20, max: 20000, default: 1000, unit: 'Hz', curve: 'log' },
 	resonance: { type: 'number', min: 0, max: 1, default: 0 },
 	drive:     { type: 'number', min: 0.1, max: 10, default: 1 },
+	type:      { type: 'enum', values: ['lowpass', 'highpass', 'bandpass'], default: 'lowpass' },
+	poles:     { type: 'number', min: 2, max: 4, default: 4, step: 2 },
 }

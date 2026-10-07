@@ -98,7 +98,7 @@ Cochlear/auditory-system models (gammatone, octave/ERB/Bark/mel banks) — moved
 
 Discrete-time models of analog circuits — each named after the hardware it replicates. Nonlinear, stateful, process in-place. The filters in synthesizers.
 
-**Resonance means something different per filter** — all four take `resonance` in 0–1, but the mapping and self-oscillation point differ: `moogLadder` maps $k = 4 \cdot \text{resonance}$, self-oscillates exactly at resonance=1 (Stilson & Smith 1996, <0.5% frequency error); `diodeLadder` uses the same $k = 4 \cdot \text{resonance}$ but self-oscillation shifts to ≈1.15–1.2 because its extra per-stage $\tanh$ adds damping; `korg35` maps $k = 2 \cdot \text{resonance}$ and never self-oscillates at any value — 2 real poles can't reach the −180° loop phase Barkhausen's criterion needs at any finite, audible frequency, so resonance only adds damping/saturation character; `oberheim` maps $R = 1 - \text{resonance}$ (inverted — resonance=1 gives $R=0$, maximum SVF resonance), with bandpass peak gain exactly $1/(2R)$.<br>
+**Resonance means something different per filter** — all four take `resonance` in 0–1, but the mapping and self-oscillation point differ: `moogLadder` maps $k = 4 \cdot \text{resonance}$, self-oscillates exactly at resonance=1, at $f_c$ itself (each stage turns 45° there); `diodeLadder` uses the same $k = 4 \cdot \text{resonance}$ but self-oscillation shifts to ≈1.15–1.2 because its extra per-stage $\tanh$ adds damping; `korg35` maps $k = 2 \cdot \text{resonance}$ and never self-oscillates at any value — 2 real poles can't reach the −180° loop phase Barkhausen's criterion needs at any finite, audible frequency, so resonance only adds damping/saturation character; `oberheim` maps $R = 1 - \text{resonance}$ (inverted — resonance=1 gives $R=0$, maximum SVF resonance), with bandpass peak gain exactly $1/(2R)$.<br>
 **`drive`** (default 1, all four filters) is input gain into each filter's $\tanh$ saturation path — `drive: 0` mutes the signal ($\tanh(0) = 0$) rather than disabling saturation and falling back to a linear filter.
 
 
@@ -108,7 +108,8 @@ Robert Moog's 4-pole transistor ladder, 1965 — the most imitated filter in ele
 
 **Circuit**: 4 cascaded one-pole transistor ladder sections, global feedback from output to input<br>
 **Implementation**: Zero-delay feedback (ZDF) via trapezoidal integration — Zavalishin (2012)[^9], Ch. 6<br>
-**Response**: $-24\,\text{dB/oct}$ lowpass; resonance peak at $f_c$; self-oscillation (sine wave) at resonance=1<br>
+**Response**: $-24\,\text{dB/oct}$ lowpass; resonance peak at $f_c$; self-oscillation (sine wave) at resonance=1, at $f_c$<br>
+**Modes**: `type` lowpass, highpass or bandpass, `poles` 4 or 2 — the ladder's taps mixed by binomial weights, $(1-L)^n$ highpass, $L^n(1-L)^n$ bandpass (Zavalishin §5.5; JUCE's `LadderFilter` modes, Pedalboard's)<br>
 **Nonlinearity**: $\tanh$ saturation at input (transistor ladder characteristic)
 
 ```js
@@ -120,12 +121,16 @@ moogLadder(buffer, params)
 // Self-oscillation — runs indefinitely from a single impulse
 let silent = new Float64Array(4096); silent[0] = 0.01
 moogLadder(silent, { fc: 1000, resonance: 1, fs: 44100 })
+
+// Highpass, -12 dB/oct
+moogLadder(buffer, { fc: 300, resonance: 0.4, fs: 44100, type: 'highpass', poles: 2 })
 ```
 
 **Patent**: Moog (1965) US3475623[^10]<br>
 **vs Diode ladder**: Moog saturates only at input; diode saturates at each stage — different character at high resonance
 
 ![Moog ladder resonance sweep](plot/moog-ladder.svg)
+![Moog ladder modes](plot/moog-ladder-modes.svg)
 
 
 ### Diode ladder
@@ -134,7 +139,7 @@ Roland TB-303 / EMS VCS3 style — per-stage saturation gives the characteristic
 
 **Circuit**: Roland TB-303, EMS VCS3, EDP Wasp<br>
 **Key difference from Moog**: stages are bidirectionally coupled — no unity-gain buffers between them (unlike Moog), so each stage loads its neighbors; solved as one tridiagonal system per sample (Thomas algorithm) instead of Moog's simple forward cascade<br>
-**Character**: preserves more bass at high resonance than Moog — closed-form DC gain $1/(1 + 4\cdot\text{resonance})$ vs Moog's $1/(1 + 4\cdot\text{resonance}\cdot(1+G+G^2+G^3+G^4))$, $G<1$ — and more "squelchy"/aggressive due to the per-stage $\tanh$<br>
+**Character**: more "squelchy"/aggressive than Moog due to the per-stage $\tanh$; its coupled stages roll off below $f_c$; DC gain $1/(1 + 4\cdot\text{resonance})$, as Moog's<br>
 **Implementation**: ZDF — Zavalishin (2012)[^9]; Pirkle (2019)[^11], Ch. 10<br>
 **Stability**: bounded (per-stage $\tanh$-saturated) across the documented 0–1 range and well beyond; self-oscillates near resonance≈1.15–1.2 — higher than Moog's exact 1, since the extra per-stage $\tanh$ adds damping
 

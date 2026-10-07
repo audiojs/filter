@@ -12,8 +12,13 @@ export interface LadderParams {
   [key: string]: unknown
 }
 
-/** Moog 4-pole transistor ladder lowpass — ZDF, –24 dB/oct, self-oscillates at resonance=1 */
-export function moogLadder(data: Buf, params: LadderParams): Buf
+export interface MoogLadderParams extends LadderParams {
+  type?: 'lowpass' | 'highpass' | 'bandpass' // default 'lowpass': the ladder's taps mixed (JUCE / Pedalboard LadderFilter modes)
+  poles?: 2 | 4      // default 4: -24 dB/oct (bandpass ±12); 2: -12 dB/oct (bandpass ±6)
+}
+
+/** Moog 4-pole transistor ladder — ZDF, –24 dB/oct lowpass (or highpass, bandpass, 2 poles), self-oscillates at resonance=1, at fc */
+export function moogLadder(data: Buf, params: MoogLadderParams): Buf
 
 /** Diode ladder lowpass (Roland TB-303 style) — bidirectionally-coupled ZDF tridiagonal solve, –24 dB/oct, self-oscillates at resonance≈1.15–1.2 */
 export function diodeLadder(data: Buf, params: LadderParams): Buf

@@ -1,4 +1,4 @@
-import test, { ok, almost } from 'tst'
+import test, { ok, almost, throws } from 'tst'
 import * as audio from '../index.js'
 import { impulse, dc, dftMag } from './util.js'
 
@@ -59,13 +59,14 @@ test('korg35 — lowpass and highpass modes', () => {
 })
 
 test('moogLadder — self-oscillation at resonance=1', () => {
-	let data = new Float64Array(2048)
-	data[0] = 0.01 // tiny impulse to start oscillation
-	audio.moogLadder(data, {fc: 1000, resonance: 1, fs: 44100})
-	// Check that output has sustained energy even late in the buffer
-	let lateEnergy = 0
-	for (let i = 1024; i < 2048; i++) lateEnergy += data[i] * data[i]
-	ok(lateEnergy > 0.001, 'Moog self-oscillates at resonance=1 (late energy: ' + lateEnergy.toFixed(4) + ')')
+	// k = 4 puts the poles on the unit circle (|L|⁴ = 1/4 where each stage turns 45°): an impulse rings
+	// on undiminished; below 1 it dies away, above it grows until the tanh holds it
+	let ring = res => { let d = new Float64Array(44100); d[0] = 0.01; audio.moogLadder(d, { fc: 1000, resonance: res, fs: 44100 }); return d }
+	let pk = (d, a, b) => { let m = 0; for (let i = a; i < b; i++) m = Math.max(m, Math.abs(d[i])); return m }
+	let at = ring(1), below = ring(0.99), above = ring(1.05)
+	almost(pk(at, 40000, 44100) / pk(at, 1024, 2048), 1, 1e-3, 'resonance 1: rings on undiminished')
+	ok(pk(below, 40000, 44100) < 1e-3 * pk(below, 1024, 2048), 'resonance 0.99: dies away')
+	ok(pk(above, 40000, 44100) > 0.1 && pk(above, 40000, 44100) < 2, `resonance 1.05: grows, held by the tanh (${pk(above, 40000, 44100).toFixed(3)})`)
 })
 
 test('diodeLadder — stable at high resonance', () => {
@@ -208,16 +209,13 @@ test('diodeLadder — differs from moogLadder in the linear regime (distinct top
 	ok(sawDiff, 'diodeLadder and moogLadder magnitude responses differ by >0.05dB somewhere in the linear regime')
 })
 
-test('diodeLadder — retains more bass than moogLadder at the same resonance (documented character)', () => {
-	// Closed form (see diode-ladder.js derivation): DC steady-state output is
-	// data/(1+k) for the diode ladder vs data/(1+k*(1+G+G²+G³+G⁴)) for moog-ladder
-	// (k=4·resonance) — diode's denominator is strictly smaller for any res>0,
-	// so it always passes more low-frequency energy at equal resonance.
-	let amp = 1e-6, n = 4000
-	for (let res of [0.3, 0.5, 0.8]) {
-		let d = dc(n, amp); audio.diodeLadder(d, { fc: 1000, resonance: res, fs: 44100 })
-		let m = dc(n, amp); audio.moogLadder(m, { fc: 1000, resonance: res, fs: 44100 })
-		ok(d[n - 1] > m[n - 1], `res=${res}: diode DC gain ${(d[n-1]/amp).toFixed(4)} > moog DC gain ${(m[n-1]/amp).toFixed(4)}`)
+test('diodeLadder & moogLadder — DC gain 1/(1+k) at any resonance', () => {
+	// At DC every stage passes unity, so the loop u = x − k·u settles at x/(1+k), k = 4·resonance:
+	// the classic ladder's bass loss as resonance rises, the same for both topologies
+	let amp = 1e-6, n = 8000
+	for (let res of [0.3, 0.5, 0.8]) for (let fn of [audio.diodeLadder, audio.moogLadder]) {
+		let d = dc(n, amp); fn(d, { fc: 1000, resonance: res, fs: 44100 })
+		almost(d[n - 1] / amp, 1 / (1 + 4 * res), 1e-6, `${fn.name} res=${res}: DC gain ${(d[n - 1] / amp).toFixed(6)}`)
 	}
 })
 
@@ -244,6 +242,34 @@ test('moogLadder & diodeLadder — asymptotic -24dB/octave slope (readme claim, 
 	}
 })
 
+test('moogLadder — highpass, bandpass, 2 poles: the taps mixed, as their transfer functions say', () => {
+	// Linear (tiny amplitude): each stage is the TPT one-pole L = g(1+z⁻¹)/((1+g)+(g−1)z⁻¹), g = tan(πfc/fs)
+	// (Zavalishin Ch. 3), the zero-delay feedback u = x − k·y4, so H = Σ Aₙ·Lⁿ / (1 + k·L⁴), Aₙ the
+	// binomial weights of Lⁿ, (1−L)ⁿ, Lⁿ(1−L)ⁿ (Zavalishin §5.5; JUCE dsp::LadderFilter's modes).
+	let fc = 1000, fs = 44100, n = 32768, g = Math.tan(Math.PI * fc / fs)
+	let mul = ([a, b], [c, d]) => [a * c - b * d, a * d + b * c], div = ([a, b], [c, d]) => { let m = c * c + d * d; return [(a * c + b * d) / m, (b * c - a * d) / m] }
+	let A = { lowpass: { 2: [0, 0, 1, 0, 0], 4: [0, 0, 0, 0, 1] }, highpass: { 2: [1, -2, 1, 0, 0], 4: [1, -4, 6, -4, 1] }, bandpass: { 2: [0, 1, -1, 0, 0], 4: [0, 0, 1, -2, 1] } }
+	let H = (f, type, poles, res) => {
+		let w = 2 * Math.PI * f / fs, z = [Math.cos(w), -Math.sin(w)]
+		let L = div([g * (1 + z[0]), g * z[1]], [1 + g + (g - 1) * z[0], (g - 1) * z[1]]), Ln = [1, 0], num = [0, 0], L4
+		for (let k = 0; k <= 4; k++) { num = [num[0] + A[type][poles][k] * Ln[0], num[1] + A[type][poles][k] * Ln[1]]; if (k === 4) L4 = Ln; Ln = mul(Ln, L) }
+		let h = div(num, [1 + 4 * res * L4[0], 4 * res * L4[1]])
+		return 10 * Math.log10(h[0] * h[0] + h[1] * h[1])
+	}
+	for (let type of ['lowpass', 'highpass', 'bandpass']) for (let poles of [2, 4]) for (let res of [0, 0.5]) for (let f of [100, 500, 1000, 2000, 8000]) {
+		let want = H(f, type, poles, res)
+		if (want < -60) continue
+		let db = gainDB(audio.moogLadder, { fc, resonance: res, fs, type, poles }, f, fs, n)
+		almost(db, want, 0.05, `${type} ${poles} poles, resonance ${res}, ${f} Hz: ${db.toFixed(3)} dB (${want.toFixed(3)})`)
+	}
+	// the asymptotes: highpass falls 24 (12) dB per octave below fc, bandpass peaks at fc
+	let hp = f => gainDB(audio.moogLadder, { fc: 4000, resonance: 0, fs, type: 'highpass' }, f, fs, 65536)
+	almost(hp(200) - hp(400), -24, 1, 'highpass: -24 dB/oct')
+	let bp = f => gainDB(audio.moogLadder, { fc, resonance: 0.6, fs, type: 'bandpass' }, f, fs, n)
+	ok(bp(1000) > bp(700) && bp(1000) > bp(1400), 'bandpass: its peak at fc')
+	throws(() => audio.moogLadder(new Float64Array(4), { type: 'notch' }), /lowpass, highpass or bandpass/)
+})
+
 test('diodeLadder — has a well-defined -3dB cutoff below fc (stage loading adds attenuation)', () => {
 	// diode-ladder's inter-stage coupling (a=G·C≥0 in the tridiagonal system)
 	// can only add attenuation relative to moog-ladder's unbuffered cascade at
@@ -265,14 +291,16 @@ test('diodeLadder — has a well-defined -3dB cutoff below fc (stage loading add
 
 // --- self-oscillation: frequency tracking + honest per-filter characterization ---
 
-test('moogLadder — self-oscillation frequency tracks fc within 1%', () => {
-	// Stilson & Smith, "Analyzing the Moog VCF" (1996): self-oscillation pitch
-	// tracks the cutoff control almost exactly.
-	for (let fc of [200, 1000, 5000]) {
-		let d = new Float64Array(8192); d[0] = 0.01
+test('moogLadder — self-oscillation frequency is fc', () => {
+	// Each TPT stage turns exactly 45° at fc (tan prewarping, Zavalishin Ch. 3): the loop oscillates at
+	// fc itself, to the cutoff's precision (Stilson & Smith 1996 measured the analog's tracking)
+	for (let fc of [200, 1000, 5000, 15000]) {
+		let n = 441000, d = new Float64Array(n); d[0] = 0.01
 		audio.moogLadder(d, { fc, resonance: 1, fs: 44100 })
-		let f = freqEst(d, 44100, 4096)
-		almost(f, fc, fc * 0.01, `moog self-osc freq ${f.toFixed(1)}Hz tracks fc=${fc}`)
+		let xs = []
+		for (let i = 4096; i < n; i++) if (d[i - 1] < 0 && d[i] >= 0) xs.push(i - 1 + d[i - 1] / (d[i - 1] - d[i]))
+		let f = (xs.length - 1) / (xs.at(-1) - xs[0]) * 44100
+		almost(f, fc, fc * 1e-5, `moog self-osc freq ${f.toFixed(3)}Hz at fc=${fc}`)
 	}
 })
 
