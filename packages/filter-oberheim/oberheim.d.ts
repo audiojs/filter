@@ -21,3 +21,17 @@ export interface OberheimParams {
  */
 declare function oberheim(data: Buf, params: OberheimParams): Buf
 export default oberheim
+
+/**
+ * One block in place, allocating nothing: what the `/audio` manifest calls. `s` the 2 integrator states (a
+ * `Float64Array` kept from call to call), `set` a `Float64Array` of fc, resonance and fs. `fade`, when given and under
+ * way (`oberheimFade` starts one), moves the output from the taps it had to this type's.
+ */
+export function oberheimBlock(data: Buf, s: Float64Array, set: Float64Array, type: 'lowpass' | 'highpass' | 'bandpass' | 'notch', fade?: Float64Array): Buf
+
+/**
+ * Starts a fade (or restarts one under way) from the taps the output has, those of `type` or a fade's blend, toward the
+ * type `oberheimBlock` is next given. `fade` a `Float64Array(5)`: where it is (0 to 1; 1 is done), its step a sample,
+ * the weights on hp, bp and lp it begins from. The weights move along t²(3 − 2t).
+ */
+export function oberheimFade(fade: Float64Array, type: 'lowpass' | 'highpass' | 'bandpass' | 'notch'): Float64Array

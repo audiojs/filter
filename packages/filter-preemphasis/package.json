@@ -17,6 +17,9 @@
     },
     "./package.json": "./package.json"
   },
+  "scripts": {
+    "prepublishOnly": "node ../../../compile/tools/tested.js"
+  },
   "files": [
     "pre-emphasis.js",
     "pre-emphasis.d.ts",

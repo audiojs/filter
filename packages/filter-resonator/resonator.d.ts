@@ -20,3 +20,9 @@ export interface ResonatorParams {
  */
 declare function resonator(data: Buf, params: ResonatorParams): Buf
 export default resonator
+
+/** The resonator's section at `fc`, `bw` and `fs`: b0, b2, a1, a2 written into `c` (a `Float64Array(4)`, made if absent) and returned. */
+export function resonatorCoefs(fc: number, bw: number, fs: number, c?: Float64Array): Float64Array
+
+/** One block in place, allocating nothing: what the `/audio` manifest calls. `s` a `Float64Array` of x1, x2, y1, y2 kept from call to call, `c` the section `resonatorCoefs` writes. */
+export function resonatorBlock(data: Buf, s: Float64Array, c: Float64Array): Buf

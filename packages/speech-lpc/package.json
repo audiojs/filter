@@ -9,6 +9,9 @@
     ".": "./lpc.js",
     "./package.json": "./package.json"
   },
+  "scripts": {
+    "prepublishOnly": "node ../../../compile/tools/tested.js"
+  },
   "files": [
     "lpc.js",
     "lpc.d.ts"

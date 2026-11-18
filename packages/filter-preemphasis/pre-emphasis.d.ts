@@ -21,3 +21,15 @@ export interface DeemphasisParams {
 
 /** De-emphasis: H(z) = 1 / (1 − α·z⁻¹). Exact inverse of `emphasis` at the same `alpha`. In-place. */
 export function deemphasis(data: Buf, params: DeemphasisParams): Buf
+
+/**
+ * One block of `emphasis` in place, allocating nothing: `s` a `Float64Array` of x1 (kept from call to call) and alpha;
+ * `alphas`, when given, alpha each frame in its place (the manifest's glide while alpha moves).
+ */
+export function emphasisBlock(data: Buf, s: Float64Array, alphas?: Float64Array): Buf
+
+/**
+ * One block of `deemphasis` in place, allocating nothing: `s` a `Float64Array` of y1 (kept from call to call) and alpha;
+ * `alphas`, when given, alpha each frame in its place (the manifest's glide while alpha moves).
+ */
+export function deemphasisBlock(data: Buf, s: Float64Array, alphas?: Float64Array): Buf

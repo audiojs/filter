@@ -35,6 +35,8 @@ korg35(buffer, { fc: 1000, resonance: 0.5, type: 'highpass', fs: 44100 })
 
 Pass the same `params` object on every call to persist the 2 stage states across blocks.
 
+`fc` above 0.49 of the sample rate is held there (every `/audio` processor of @audio/filter and @audio/eq keeps this one rule). In the `/audio` processor a new `type` moves the output from the old taps to the new over 20 ms: a tap switched in one sample would click. `fc` is smoothed (20 ms): a host ramps it, the filter retuned at each call's value.
+
 **Use when:** MS-20-style aggressive filter character with a highpass tap available; use `moogLadder` for 4-pole warmth and true self-oscillation instead.
 
 ---

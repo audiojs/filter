@@ -7,14 +7,16 @@
  * (eg lowpass.js's `useButterworth` registration) are still shared across
  * fences, same as they would be in a real app.
  *
- * Fences intentionally left non-runnable — API-shape fragments, and the
- * Pitfalls section's "Wrong" contrastive snippets — are marked in readme.md
+ * Fences intentionally left non-runnable — API-shape fragments, the
+ * Pitfalls section's "Wrong" contrastive snippets, and examples importing a
+ * family that moved out of this repo (@audio/weighting, @audio/auditory,
+ * @audio/eq: not dependencies here) — are marked in readme.md
  * with an info string of `js skip` and only counted, never executed.
  *
  * Prelude (stand-in data for readme snippets that reference audio the reader
  * is assumed to already have, eg `buffer`, `stream`): every runnable fence is
  * prefixed with the PRELUDE source below, which declares all of:
- *   buffer, signal, input, left, right          Float64Array(256), generic audio
+ *   buffer, signal, input, left, right, chunk   Float64Array(256), generic audio
  *   carrier, modulator                          Float64Array(1024), for vocoder
  *   phonoSignal, excitation                     Float64Array, RIAA/formant inputs
  *   speechFrame                                 Float64Array(512), for LPC
@@ -47,6 +49,7 @@ const signal = mkBuf(256)
 const input = mkBuf(256)
 const left = mkBuf(256)
 const right = mkBuf(256, 0.4)
+const chunk = mkBuf(256)
 const carrier = mkBuf(1024, 0.9)
 const modulator = mkBuf(1024, 0.4)
 const phonoSignal = mkBuf(256)

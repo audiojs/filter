@@ -22,6 +22,9 @@
       "default": "./audio.js"
     }
   },
+  "scripts": {
+    "prepublishOnly": "node ../../../compile/tools/tested.js"
+  },
   "files": [
     "index.js",
     "index.d.ts",

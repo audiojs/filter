@@ -21,7 +21,7 @@ export interface ResonatorOptions {
 export declare const resonator: {
   (ctx: Ctx): Process
   channels: "any"
-  tail: 0.5
+  tail: (at: { sampleRate: number, params: Live, buffers: {} }) => number
   params: {
     /** 20..20000 Hz (default 440) */
     "fc": { type: "number", default: 440 }

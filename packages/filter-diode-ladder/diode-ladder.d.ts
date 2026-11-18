@@ -21,3 +21,9 @@ export interface DiodeLadderParams {
  */
 declare function diodeLadder(data: Buf, params: DiodeLadderParams): Buf
 export default diodeLadder
+
+/**
+ * One block in place, allocating nothing: what the `/audio` manifest calls. `s` the 4 integrator states (a
+ * `Float64Array` kept from call to call), `set` a `Float64Array` of fc, resonance, drive and fs.
+ */
+export function diodeBlock(data: Buf, s: Float64Array, set: Float64Array): Buf

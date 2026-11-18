@@ -19,6 +19,7 @@ export interface DeemphasisOptions {
 export declare const deemphasis: {
   (ctx: Ctx): Process
   channels: "any"
+  tail: (at: { sampleRate: number, params: Live, buffers: {} }) => number
   params: {
     /** 0.5..0.99 (default 0.97) */
     "alpha": { type: "number", default: 0.97 }

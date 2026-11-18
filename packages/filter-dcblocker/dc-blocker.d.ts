@@ -13,3 +13,6 @@ export interface DcBlockerParams {
 /** DC blocker: H(z) = (1 − z⁻¹) / (1 − R·z⁻¹). Removes DC offset, in place. */
 declare function dcBlocker(data: Buf, params: DcBlockerParams): Buf
 export default dcBlocker
+
+/** One block in place, allocating nothing: `s` a `Float64Array` of x1, y1 (kept from call to call) and R. */
+export function dcBlock(data: Buf, s: Float64Array): Buf

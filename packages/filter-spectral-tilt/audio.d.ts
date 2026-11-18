@@ -19,6 +19,7 @@ export interface SpectralTiltOptions {
 export declare const spectralTilt: {
   (ctx: Ctx): Process
   channels: "any"
+  tail: (at: { sampleRate: number, params: Live, buffers: {} }) => number
   params: {
     /** -6..6 dB/oct (default 0) */
     "slope": { type: "number", default: 0 }

@@ -1,5 +1,6 @@
-import test, { almost, ok } from 'tst'
+import test, { almost, ok, is } from 'tst'
 import * as audio from '../index.js'
+import * as biquadAtoms from '@audio/filter-biquad/audio'
 import butterworth from 'digital-filter/iir/butterworth.js'
 import { dftMag, magDB, impulse, dc, EPSILON } from './util.js'
 audio.highpass.useButterworth(butterworth)
@@ -289,6 +290,13 @@ test('bandpass — Q controls width', () => {
 	ok(wideRatio > narrowRatio * 2, `Q=1 wider at 700Hz (ratio ${wideRatio.toFixed(3)}) than Q=10 (${narrowRatio.toFixed(3)})`)
 })
 
+test('filter-biquad audio.js – each atom carries the id of its export name', () => {
+	// CONTRACT.md "id": hosts name an atom by its id, else its function name; wrap() returns an unnamed arrow
+	let names = Object.keys(biquadAtoms)
+	is(names.join(), 'bandpass,highpass,lowpass', 'the three exports')
+	for (let name of names) is(biquadAtoms[name].id, name, `${name}.id`)
+})
+
 // ── fail-first: fc is required ──────────────────────────────────────────────
 
 test('lowpass — throws when params.fc is missing', () => {
@@ -495,6 +503,17 @@ test('variableBandwidth — steady-state response equals plain lowpass once conv
 	let b = dc(N)
 	audio.lowpass(b, { fc: 1000, Q: 0.707, fs })
 	almost(a[N - 1], b[N - 1], 1e-6)
+})
+
+// fc over 0.49 of the rate is held there (variableBlock), the smoothing's start included: a direct call at 20 kHz and
+// 22.05 kHz sounds as one at 10804.5 Hz from its first sample (a smoothing begun at 20 kHz ran through unstable sections)
+test('variableBandwidth – fc above 0.49·fs is held from the first sample: the same as fc at 0.49·fs, bit for bit', () => {
+	for (let [fs, fc] of [[22050, 20000], [8000, 5000]]) {
+		let x = Float64Array.from({ length: 4096 }, (_, i) => Math.sin(i * 0.3)), a = Float64Array.from(x), b = Float64Array.from(x)
+		let p = { fc, fs, Q: 0.707 }, q = { fc: 0.49 * fs, fs, Q: 0.707 }
+		for (let pos = 0; pos < x.length; pos += 128) { audio.variableBandwidth(a.subarray(pos, pos + 128), p); audio.variableBandwidth(b.subarray(pos, pos + 128), q) }
+		ok(a.every((v, i) => Object.is(v, b[i])), `fc ${fc} at ${fs}: as fc ${0.49 * fs}, bit for bit (largest |y| ${a.reduce((m, v) => Math.max(m, Math.abs(v)), 0).toPrecision(3)})`)
+	}
 })
 
 // ── Float32Array input paths ─────────────────────────────────────────────────

@@ -28,6 +28,8 @@ spectralTilt(buffer, { slope: +3, fs: 44100 })   // +3 dB/oct: pre-emphasis for 
 
 Pass the same `params` object on every call to persist the 8-section cascade state across blocks.
 
+In the `/audio` processor `slope` moves no pole: it sets the gain each stage gives above its corner, 10^(slope/20), and that gain is smoothed (20 ms) and glided sample by sample: a host's ramp of it is one line, the same however the host cuts its calls (it hands each call the value at its first frame, so the line is played 32 frames late); held, it is the value itself. At slope 0 the input passes as it is while each stage's one-pole follows it, so a slope moving off 0 starts from the states the cascade has there.
+
 **Use when:** matching microphone/speaker frequency responses, spectral coloring, noise synthesis.
 
 ---

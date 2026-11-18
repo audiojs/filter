@@ -25,3 +25,17 @@ export interface MoogLadderParams {
  */
 declare function moogLadder(data: Buf, params: MoogLadderParams): Buf
 export default moogLadder
+
+/**
+ * One block in place, allocating nothing: what the `/audio` manifest calls. `s` the 4 integrator states (a
+ * `Float64Array` kept from call to call), `set` a `Float64Array` of fc, resonance, drive and fs, `poles` 2 or 4.
+ * `fade`, when given and under way (`moogFade` starts one), moves the output from the taps it had to this type's.
+ */
+export function moogBlock(data: Buf, s: Float64Array, set: Float64Array, type: 'lowpass' | 'highpass' | 'bandpass', poles: 2 | 4, fade?: Float64Array): Buf
+
+/**
+ * Starts a fade (or restarts one under way) from the taps the output has, those of `type` and `poles` or a fade's blend,
+ * toward the taps `moogBlock` is next given. `fade` a `Float64Array(7)`: where it is (0 to 1; 1 is done), its step a
+ * sample (1 / the samples it lasts), the 5 weights it begins from. The weights move along t²(3 − 2t).
+ */
+export function moogFade(fade: Float64Array, type: 'lowpass' | 'highpass' | 'bandpass', poles: 2 | 4): Float64Array

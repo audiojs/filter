@@ -19,6 +19,7 @@ export interface DcblockerOptions {
 export declare const dcblocker: {
   (ctx: Ctx): Process
   channels: "any"
+  tail: (at: { sampleRate: number, params: Live, buffers: {} }) => number
   params: {
     /** 0.9..0.9999 (default 0.995) */
     "R": { type: "number", default: 0.995 }

@@ -17,3 +17,22 @@ export interface SpectralTiltParams {
  */
 declare function spectralTilt(data: Buf, params: SpectralTiltParams): Buf
 export default spectralTilt
+
+/**
+ * The cascade for `slope` dB/octave at `fs`, written into `c` (a `Float64Array(10)`, made if absent) and returned: c[0] the
+ * stages (octaves from 62.5 Hz under fs/2), c[1] the gain each applies above its corner, c[2…] their poles.
+ */
+export function tiltCoefs(slope: number, fs: number, c?: Float64Array): Float64Array
+
+/**
+ * One block in place, allocating nothing: what the `/audio` manifest calls. `s` a `Float64Array(8)` of the stages' states
+ * kept from call to call, `c` the cascade `tiltCoefs` writes; `gains`, when given, each frame's gain per octave
+ * (10^(slope/20)) in place of `c[1]` (the manifest's glide while the slope moves).
+ */
+export function tiltBlock(data: Buf, s: Float64Array, c: Float64Array, gains?: Float64Array): Buf
+
+/**
+ * At slope 0 the cascade is the identity: `data` passes unchanged while each stage's one-pole follows it, so a slope
+ * moving off 0 starts from the states the cascade has there.
+ */
+export function tiltIdle(data: Buf, s: Float64Array, c: Float64Array): Buf

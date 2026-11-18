@@ -32,6 +32,8 @@ diodeLadder(buffer, params)
 
 Pass the same `params` object on every call to persist the 4 stage states across blocks.
 
+`fc` above 0.49 of the sample rate is held there (every `/audio` processor of @audio/filter and @audio/eq keeps this one rule). In the `/audio` processor `fc` is smoothed (20 ms): a host ramps it, the ladder retuned at each call's value.
+
 **Use when:** acid basslines, squelchy synth leads — resonance character that stays bounded (not self-oscillating) across most of the range, unlike `moogLadder`.
 
 ---

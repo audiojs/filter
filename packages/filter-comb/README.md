@@ -32,6 +32,8 @@ let params = { delay: 100, gain: 0.6, type: 'feedback' }
 for (let buf of stream) comb(buf, params)
 ```
 
+The delay is live, read as @audio/effect's delay lines read theirs: a delay between two samples is read between them, and a new one glides across the call from where the last call ended, the read no faster than double speed and no slower than half. A delay longer than the ring holds makes a new ring, empty; the `/audio` processor makes its ring for the longest delay, 100 ms, so its delay moves without one. Its `gain` is smoothed (20 ms) and glided sample by sample: a host's ramp of it is one line, the same however the host cuts its calls (it hands each call the value at its first frame, so the line is played 32 frames late); held, it is the value itself. A new `type` still switches in one sample: feedforward keeps its input in the line and feedback its output, so a fade would need the feedback recursion running at all times.
+
 **Use when:** flanging, chorus (with modulated delay), Karplus-Strong string synthesis, room mode modeling.
 
 ---

@@ -23,7 +23,7 @@ export interface CombOptions {
 export declare const comb: {
   (ctx: Ctx): Process
   channels: "any"
-  tail: 0.5
+  tail: (at: { sampleRate: number, params: Live, buffers: {} }) => number
   params: {
     /** 0.05..100 ms (default 10) */
     "delay": { type: "number", default: 10 }

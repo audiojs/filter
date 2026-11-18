@@ -44,6 +44,8 @@ moogLadder(buffer, { fc: 300, resonance: 0.4, fs: 44100, type: 'highpass', poles
 
 Pass the same `params` object on every call to persist the 4 stage states across blocks.
 
+`fc` above 0.49 of the sample rate is held there (every `/audio` processor of @audio/filter and @audio/eq keeps this one rule). In the `/audio` processor a new `type` or `poles` moves the output from the old taps to the new over 20 ms: a tap switched in one sample would click. `fc` is smoothed (20 ms): a host ramps it, the ladder retuned at each call's value.
+
 **Use when:** synth-filter warmth, resonance, and true self-oscillation at resonance=1 — the reference analog-modeled lowpass.
 
 ---

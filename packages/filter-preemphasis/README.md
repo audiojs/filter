@@ -29,6 +29,8 @@ deemphasis(buffer, { alpha: 0.97 })  // after decoding — exact inverse
 
 Pass the same `params` object on every call to persist the one-pole state across blocks.
 
+In the `/audio` processors `alpha` is smoothed (20 ms) and glided sample by sample: a host's ramp of it is one line, the same however the host cuts its calls (it hands each call the value at its first frame, so the line is played 32 frames late); held, it is the value itself.
+
 **Use when:** speech coding (GSM, AMR uses $\alpha = 0.97$), tape recording, FM broadcasting.
 
 ---

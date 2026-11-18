@@ -19,3 +19,9 @@ export interface IntegralParams {
 
 /** Running sum: acc = acc*leak + data[n]; data[n] = acc. In-place. */
 export function integral(data: Buf, params: IntegralParams): Buf
+
+/** One block of `derivative` in place, allocating nothing: `s` a `Float64Array` holding prev, kept from call to call. */
+export function derivativeBlock(data: Buf, s: Float64Array): Buf
+
+/** One block of `integral` in place, allocating nothing: `s` a `Float64Array` of acc (kept from call to call) and leak. */
+export function integralBlock(data: Buf, s: Float64Array): Buf

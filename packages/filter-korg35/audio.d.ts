@@ -25,6 +25,7 @@ export interface Korg35Options {
 export declare const korg35: {
   (ctx: Ctx): Process
   channels: "any"
+  tail: (at: { sampleRate: number, params: Live, buffers: {} }) => number
   params: {
     /** 20..20000 Hz (default 1000) */
     "fc": { type: "number", default: 1000 }

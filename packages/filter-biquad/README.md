@@ -52,7 +52,11 @@ let params = { fc: 1000, fs: 44100 }
 for (let buf of stream) lowpass(buf, params)
 ```
 
+The `/audio` processors hold `fc` at 0.49 of the sample rate: past Nyquist the section's poles leave the unit circle, and every `/audio` processor of @audio/filter and @audio/eq keeps this one rule. `fc` and `Q` are smoothed (20 ms): a host ramps them in calls of 32 frames at most, the section designed again at each call's values.
+
 **Use when:** building an audio-facing biquad filter (Hz/Q, not raw SOS coefficients); bypass this and use `@audio/biquad` directly when you already have coefficients or need cascade/analysis primitives.
+
+The processors of `@audio/filter-biquad/audio` carry the ids `lowpass`, `highpass` and `bandpass`, which are built-in ops of [audio](https://github.com/audiojs/audio): `audio.use` refuses them under those names, so register one under another, `audio.op('rbj-lowpass', lowpass)`.
 
 ---
 

@@ -34,6 +34,7 @@ export interface IntegralOptions {
 export declare const integral: {
   (ctx: Ctx): Process
   channels: "any"
+  tail: (at: { sampleRate: number, params: Live, buffers: {} }) => number
   params: {
     /** 0.9..1 (default 1) */
     "leak": { type: "number", default: 1 }

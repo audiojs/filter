@@ -30,6 +30,8 @@ resonator(buffer, { fc: 440, bw: 20, fs: 44100 })
 
 Pass the same `params` object on every call to persist the two-pole state across blocks. Internal cache fields are prefixed `_r*` (`_rFc`, `_rA1`, …) so `params` can double as a caller-owned object — e.g. `@audio/speech-formant` shares one params object per formant band.
 
+The `/audio` processor holds `fc` at 0.49 of the sample rate: past Nyquist the resonance would sound at its alias, and every `/audio` processor of @audio/filter and @audio/eq keeps this one rule. `fc` is smoothed (20 ms): a host ramps it in calls of 32 frames at most, the section designed again at each call's value.
+
 **Use when:** additive synthesis (bells, gongs), modal synthesis, formant bank building.
 
 **vs Peaking EQ**: resonator has fixed 0 dB peak; peaking EQ has variable gain — use resonator for synthesis, EQ for mixing.

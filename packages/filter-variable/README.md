@@ -36,6 +36,10 @@ for (let buf of stream) {
 }
 ```
 
+`fc` above 0.49 of the sample rate is held there, in the direct call and the `/audio` processor: past Nyquist the section's poles leave the unit circle, and every `/audio` processor of @audio/filter and @audio/eq keeps this one rule.
+
+In the `/audio` processor a new `type` moves the output from the old type to the new over 20 ms: the three types share one denominator, so during the fade the section runs in direct form, each type's numerator on the same history, and the output is the two types' own renders crossfaded (switched in one sample, lowpass to highpass read ×1105 on a 220 Hz tone). Each frame's coefficients are computed in the kernel by `@audio/biquad`'s arithmetic, so a frame passes no number to a call and a type change allocates nothing.
+
 **Use when:** LFO-modulated filter cutoff, automated EQ sweeps, smooth filter animation.
 
 **vs Direct biquad**: recalculating biquad coefficients per sample causes zipper noise; variable bandwidth avoids this.

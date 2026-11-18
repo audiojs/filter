@@ -1,4 +1,4 @@
-# @audio/filter [![ci](https://github.com/audiojs/filter/actions/workflows/ci.yml/badge.svg)](https://github.com/audiojs/filter/actions/workflows/ci.yml) [![npm](https://img.shields.io/npm/v/@audio/filter)](https://npmjs.org/package/@audio/filter) [![MIT](https://img.shields.io/badge/MIT-%E0%A5%90-white)](https://github.com/krishnized/license)
+# @audio/filter [![test](https://github.com/audiojs/filter/actions/workflows/test.yml/badge.svg)](https://github.com/audiojs/filter/actions/workflows/test.yml) [![npm](https://img.shields.io/npm/v/@audio/filter)](https://npmjs.org/package/@audio/filter) [![MIT](https://img.shields.io/badge/MIT-%E0%A5%90-white)](https://github.com/krishnized/license)
 
 Canonical audio filter implementations.<br>
 
@@ -28,7 +28,7 @@ Canonical audio filter implementations.<br>
 npm install @audio/filter
 ```
 
-```js
+```js skip
 // import everything
 import * as filter from '@audio/filter'
 
@@ -68,7 +68,7 @@ Three families, by shape:
 
 For frequency analysis, weighting filters expose a `.coefs(fs)` method returning a second-order sections (SOS) array — `[{b0, b1, b2, a1, a2}, ...]`, one biquad per section — for use with `digital-filter`:
 
-```js
+```js skip
 import { aWeighting } from '@audio/weighting'
 import { freqz, mag2db } from 'digital-filter'
 
@@ -554,13 +554,15 @@ variableBandwidth(buffer, { fc: 2000, Q: 1.0, fs: 44100 })
 `highpass`/`lowpass`/`bandpass`/`notch`/`allpass` above are built on `@audio/filter-biquad`, which itself wraps the shared `@audio/biquad` kernel — one coefficient/state source for every biquad-shaped atom in the `@audio` ecosystem (RBJ cookbook coefficients, Web Audio conventions, transposed direct-form-II state).
 
 ```js
-import { lowpass, peaking, filter, process, state, cascade, magnitude } from '@audio/biquad'
+import { lowpass, peaking, filter, process, state, cascade, magnitude, tail } from '@audio/biquad'
 
 let c = lowpass(1000, 0.707, 44100)   // coefficients — normalized a0 = 1
+lowpass(2000, 0.707, 44100, c)        // a design writes into a section given it: a retune that allocates nothing
 filter(chunk, { coefs: [c] })         // params-convention: state rides the params object
 
 let s = process(chunk, c, state())    // section-level kernel, explicit state
 magnitude(c, 440, 44100)              // |H(f)| — analysis/plotting
+tail(c, 44100)                        // seconds it rings once its input stops, until 60 dB under the input
 ```
 
 **Use when**: building a new biquad-shaped atom, or bypassing `filter-biquad`'s Hz/Q wrapper for raw coefficient/state control<br>
@@ -597,7 +599,10 @@ Measurement curves, auditory banks, studio EQ, crossfeed, and colored noise move
 ## FAQ
 
 **Why does my filter click when I change `fc` or `Q`?**
-Biquad coefficients change discontinuously between samples. Use `variableBandwidth` for smooth automated sweeps, or crossfade.
+Biquad coefficients change discontinuously between samples. Use `variableBandwidth` for smooth automated sweeps, or crossfade. The `/audio` processors of the Moog ladder, Korg35, Oberheim and `variable` fade a new `type` (and the Moog's `poles`) over 20 ms. A value that scales the signal (the comb's `gain`, pre- and de-emphasis's `alpha`, spectral tilt's `slope`) glides sample by sample along a host's ramp; a retune (`fc`, `Q`) is smoothed over 20 ms, the host ramping it call by call (`variable` smooths its own `fc` and `Q` sample by sample).
+
+**What happens to a frequency above Nyquist?**
+It is held at 0.49 of the sample rate: in the ladders' and `variableBandwidth`'s kernels, and in every `/audio` processor here and in [@audio/eq](https://github.com/audiojs/eq). Past Nyquist a filter's poles leave the unit circle, or a resonance sounds at its alias.
 
 **Why does my Moog/Diode filter blow up?**
 `resonance=1` on Moog is intentional self-oscillation. Diode ladder is bounded across its full resonance range (per-stage $\tanh$-saturated); it self-oscillates near resonance≈1.15–1.2, not exactly at 1 like Moog. Limit input gain before high resonance.

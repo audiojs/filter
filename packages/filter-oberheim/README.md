@@ -35,6 +35,8 @@ oberheim(buffer, { fc: 1000, resonance: 0.5, type: 'notch',    fs: 44100 })
 
 Pass the same `params` object on every call to persist the 2 integrator states across blocks.
 
+`fc` above 0.49 of the sample rate is held there (every `/audio` processor of @audio/filter and @audio/eq keeps this one rule). In the `/audio` processor a new `type` moves the output from the old taps to the new over 20 ms: a tap switched in one sample would click. `fc` is smoothed (20 ms): a host ramps it, the filter retuned at each call's value.
+
 **Use when:** multimode synth filter (LP/HP/BP/notch from one set of coefficients) with warm, musical resonance — mode-switch by changing `type` without recomputing coefficients.
 
 ---

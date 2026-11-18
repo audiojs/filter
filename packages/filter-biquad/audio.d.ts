@@ -21,6 +21,7 @@ export interface BandpassOptions {
 export declare const bandpass: {
   (ctx: Ctx): Process
   channels: "any"
+  tail: (at: { sampleRate: number, params: Live, buffers: {} }) => number
   params: {
     /** 20..20000 Hz (default 1000) */
     "fc": { type: "number", default: 1000 }
@@ -42,6 +43,7 @@ export interface HighpassOptions {
 export declare const highpass: {
   (ctx: Ctx): Process
   channels: "any"
+  tail: (at: { sampleRate: number, params: Live, buffers: {} }) => number
   params: {
     /** 20..20000 Hz (default 1000) */
     "fc": { type: "number", default: 1000 }
@@ -63,6 +65,7 @@ export interface LowpassOptions {
 export declare const lowpass: {
   (ctx: Ctx): Process
   channels: "any"
+  tail: (at: { sampleRate: number, params: Live, buffers: {} }) => number
   params: {
     /** 20..20000 Hz (default 1000) */
     "fc": { type: "number", default: 1000 }
