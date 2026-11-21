@@ -1,6 +1,6 @@
 {
   "name": "@audio/filter",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "type": "module",
   "sideEffects": false,
   "description": "Audio-facing filters — umbrella for @audio/filter-* atoms (biquads, comb, resonator, DC blocker, pre-emphasis, spectral tilt, analog ladder models)",
@@ -9,11 +9,11 @@
       "types": "./index.d.ts",
       "default": "./index.js"
     },
-    "./package.json": "./package.json",
-    "./*": {
-      "types": "./members/*.d.ts",
-      "default": "./members/*.js"
-    }
+    "./audio": {
+      "types": "./audio.d.ts",
+      "default": "./audio.js"
+    },
+    "./package.json": "./package.json"
   },
   "types": "./index.d.ts",
   "engines": {
@@ -25,13 +25,13 @@
     "test:all": "npm test --workspaces --if-present && npm test",
     "plot": "node plot/generate.js",
     "publish:all": "node ../compile/tools/tested.js && npm publish --workspaces && npm publish",
-    "members": "node scripts/members.js",
-    "prepublishOnly": "node ../compile/tools/tested.js && node scripts/members.js --check"
+    "prepublishOnly": "node ../compile/tools/tested.js"
   },
   "files": [
     "index.js",
     "index.d.ts",
-    "members/"
+    "audio.js",
+    "audio.d.ts"
   ],
   "repository": {
     "type": "git",
