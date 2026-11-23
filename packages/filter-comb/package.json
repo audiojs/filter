@@ -1,6 +1,6 @@
 {
   "name": "@audio/filter-comb",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Comb filter — feedforward (FIR) and feedback (IIR)",
   "type": "module",
   "sideEffects": false,

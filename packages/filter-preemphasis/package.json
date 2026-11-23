@@ -1,6 +1,6 @@
 {
   "name": "@audio/filter-preemphasis",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Pre-emphasis / de-emphasis filter",
   "type": "module",
   "sideEffects": false,
